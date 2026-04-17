@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FixFlow OS — نظام إدارة ورشة الصيانة</title>
+    <meta
+      name="description"
+      content="FixFlow OS — نظام إدارة ورشة صيانة الموبايل المتكامل. تتبع الطلبيات، الزبائن، المالية، والأسعار في مكان واحد."
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+         /* ============================================================
+      DESIGN SYSTEM
+      Dark industrial tech — orange fire accent on deep carbon
+      ============================================================ */
+         :root {
+           --bg: #080a0e;
+           --bg2: #0e1117;
+           --bg3: #141920;
+           --border: #1e2530;
+           --border2: #2a3340;
+           --text: #e8eff8;
+           --muted: #6b7a8d;
+           --muted2: #4a5566;
+           --orange: #ff6b35;
+           --orange2: #ff8c5a;
+           --orange-glow: rgba(255, 107, 53, 0.15);
+           --blue: #3b82f6;
+           --green: #22c55e;
+           --red: #ef4444;
+           --yellow: #f59e0b;
+           --radius: 10px;
+           --radius-lg: 16px;
+         }
+
+         *,
+         *::before,
+         *::after {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+         }
+
+         html {
+           scroll-behavior: smooth;
+         }
+
+         body {
+           background: var(--bg);
+           color: var(--text);
+           font-family: "Cairo", sans-serif;
+           overflow-x: hidden;
+           line-height: 1.6;
+         }
+
+         /* ============================================================
+      NOISE TEXTURE OVERLAY
+      ============================================================ */
+         body::before {
+           content: "";
+           position: fixed;
+           inset: 0;
+           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+           pointer-events: none;
+           z-index: 0;
+           opacity: 0.4;
+         }
+
+         /* ============================================================
+      NAVBAR
+      ============================================================ */
+         nav {
+           position: fixed;
+           top: 0;
+           left: 0;
+           right: 0;
+           z-index: 100;
+           padding: 0 5%;
+           height: 68px;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           background: rgba(8, 10, 14, 0.85);
+           backdrop-filter: blur(20px);
+           border-bottom: 1px solid var(--border);
+         }
+
+         .nav-logo {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+           text-decoration: none;
+         }
+
+
+         .nav-logo-text {
+           font-family: "Syne", sans-serif;
+           font-size: 18px;
+           font-weight: 800;
+           color: white;
+           letter-spacing: -0.5px;
+         }
+
+         .nav-logo-text span {
+           color: var(--orange);
+         }
+
+         .nav-links {
+           display: flex;
+           align-items: center;
+           gap: 8px;
+           list-style: none;
+         }
+
+         .nav-links a {
+           color: var(--muted);
+           text-decoration: none;
+           font-size: 14px;
+           font-weight: 600;
+           padding: 6px 14px;
+           border-radius: 6px;
+           transition: all 0.2s;
+         }
+
+         .nav-links a:hover {
+           color: var(--text);
+           background: var(--bg3);
+         }
+
+         .nav-cta {
+           background: var(--orange) !important;
+           color: white !important;
+           padding: 8px 20px !important;
+           border-radius: 8px !important;
+           font-weight: 700 !important;
+         }
+
+         .nav-cta:hover {
+           background: var(--orange2) !important;
+           transform: translateY(-1px);
+         }
+
+         .nav-hamburger {
+           display: none;
+           flex-direction: column;
+           gap: 5px;
+           cursor: pointer;
+           padding: 4px;
+         }
+
+         .nav-hamburger span {
+           display: block;
+           width: 24px;
+           height: 2px;
+           background: var(--text);
+           border-radius: 2px;
+           transition: all 0.3s;
+         }
+
+         .nav-controls {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+         }
+
+         .lang-switch {
+           margin: 0;
+         }
+
+         .lang-btn {
+           background: transparent;
+           color: var(--text);
+           border: 1px solid var(--border2);
+           border-radius: 8px;
+           padding: 7px 12px;
+           font-size: 12px;
+           font-weight: 700;
+           cursor: pointer;
+           font-family: "JetBrains Mono", monospace;
+         }
+
+         .lang-btn:hover {
+           border-color: var(--orange);
+           color: var(--orange2);
+         }
+
+         /* ============================================================
+      HERO
+      ============================================================ */
+         .hero {
+           min-height: 100vh;
+           display: flex;
+           align-items: center;
+           padding: 100px 5% 60px;
+           position: relative;
+           overflow: hidden;
+         }
+
+         /* Background grid */
+         .hero::before {
+           content: "";
+           position: absolute;
+           inset: 0;
+           background-image: linear-gradient(var(--border) 1px, transparent 1px),
+             linear-gradient(90deg, var(--border) 1px, transparent 1px);
+           background-size: 60px 60px;
+           opacity: 0.3;
+           mask-image: radial-gradient(
+             ellipse 70% 70% at 50% 50%,
+             black 40%,
+             transparent 100%
+           );
+         }
+
+         /* Orange glow blob */
+         .hero::after {
+           content: "";
+           position: absolute;
+           top: 20%;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 600px;
+           height: 400px;
+           background: radial-gradient(
+             ellipse,
+             rgba(255, 107, 53, 0.12) 0%,
+             transparent 70%
+           );
+           pointer-events: none;
+         }
+
+         .hero-inner {
+           max-width: 1200px;
+           margin: 0 auto;
+           width: 100%;
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 60px;
+           align-items: center;
+           position: relative;
+           z-index: 1;
+         }
+
+         .hero-badge {
+           display: inline-flex;
+           align-items: center;
+           gap: 8px;
+           background: rgba(255, 107, 53, 0.1);
+           border: 1px solid rgba(255, 107, 53, 0.3);
+           color: var(--orange2);
+           font-size: 12px;
+           font-weight: 700;
+           padding: 6px 14px;
+           border-radius: 20px;
+           margin-bottom: 24px;
+           letter-spacing: 0.5px;
+         }
+
+         .hero-badge::before {
+           content: "●";
+           font-size: 8px;
+           animation: pulse 2s infinite;
+         }
+
+         @keyframes pulse {
+           0%,
+           100% {
+             opacity: 1;
+           }
+           50% {
+             opacity: 0.3;
+           }
+         }
+
+         .hero-title {
+           font-family: "Cairo", sans-serif;
+           font-size: clamp(38px, 5vw, 62px);
+           font-weight: 800;
+           line-height: 1.15;
+           margin-bottom: 20px;
+           letter-spacing: -1px;
+           color: white;
+         }
+
+         .hero-title .line2 {
+           color: var(--orange);
+           position: relative;
+           display: inline-block;
+         }
+
+         .hero-title .line2::after {
+           content: "";
+           position: absolute;
+           bottom: 4px;
+           left: 0;
+           right: 0;
+           height: 3px;
+           background: var(--orange);
+           opacity: 0.4;
+           border-radius: 2px;
+         }
+
+         .hero-sub {
+           font-size: 17px;
+           color: var(--muted);
+           line-height: 1.8;
+           margin-bottom: 36px;
+           max-width: 480px;
+         }
+
+         .hero-actions {
+           display: flex;
+           gap: 14px;
+           flex-wrap: wrap;
+           margin-bottom: 48px;
+         }
+
+         .btn-primary {
+           background: var(--orange);
+           color: white;
+           padding: 14px 28px;
+           border-radius: var(--radius);
+           font-size: 15px;
+           font-weight: 700;
+           text-decoration: none;
+           transition: all 0.25s;
+           display: inline-flex;
+           align-items: center;
+           gap: 8px;
+           border: none;
+           cursor: pointer;
+           font-family: "Cairo", sans-serif;
+         }
+
+         .btn-primary:hover {
+           background: var(--orange2);
+           transform: translateY(-2px);
+           box-shadow: 0 12px 30px rgba(255, 107, 53, 0.3);
+         }
+
+         .btn-secondary {
+           background: transparent;
+           color: var(--text);
+           padding: 14px 28px;
+           border-radius: var(--radius);
+           font-size: 15px;
+           font-weight: 600;
+           text-decoration: none;
+           transition: all 0.25s;
+           display: inline-flex;
+           align-items: center;
+           gap: 8px;
+           border: 1px solid var(--border2);
+           cursor: pointer;
+           font-family: "Cairo", sans-serif;
+         }
+
+         .btn-secondary:hover {
+           border-color: var(--muted2);
+           background: var(--bg3);
+         }
+
+         .hero-stats {
+           display: flex;
+           gap: 32px;
+           padding-top: 28px;
+           border-top: 1px solid var(--border);
+         }
+
+         .stat-item {
+         }
+         .stat-num {
+           font-family: "Syne", sans-serif;
+           font-size: 26px;
+           font-weight: 800;
+           color: white;
+           display: block;
+         }
+         .stat-num span {
+           color: var(--orange);
+         }
+         .stat-label {
+           font-size: 12px;
+           color: var(--muted);
+           margin-top: 2px;
+         }
+
+         /* Hero Dashboard Mockup */
+         .hero-visual {
+           position: relative;
+         }
+
+         /* Placeholder image styling for mockup replacements */
+         .mock-placeholder {
+           width: 100%;
+           height: auto;
+           display: block;
+           border-radius: var(--radius-lg);
+           box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+         }
+
+         /* ============================================================
+      SECTIONS COMMON
+      ============================================================ */
+         section {
+           padding: 100px 5%;
+           position: relative;
+         }
+
+         .section-inner {
+           max-width: 1200px;
+           margin: 0 auto;
+         }
+
+         .section-eyebrow {
+           display: inline-flex;
+           align-items: center;
+           gap: 8px;
+           font-size: 11px;
+           font-weight: 700;
+           letter-spacing: 2px;
+           text-transform: uppercase;
+           color: var(--orange);
+           margin-bottom: 16px;
+           font-family: "JetBrains Mono", monospace;
+         }
+
+         .section-eyebrow::before {
+           content: "—";
+         }
+
+         .section-title {
+           font-family: "Cairo", sans-serif;
+           font-size: clamp(28px, 4vw, 46px);
+           font-weight: 800;
+           line-height: 1.2;
+           letter-spacing: -0.5px;
+           margin-bottom: 16px;
+           color: white;
+         }
+
+         .section-sub {
+           font-size: 16px;
+           color: var(--muted);
+           max-width: 560px;
+           line-height: 1.8;
+           margin-bottom: 60px;
+         }
+
+         /* ============================================================
+      PAIN SECTION
+      ============================================================ */
+         #pain {
+           background: var(--bg2);
+         }
+
+         .pain-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+           gap: 20px;
+         }
+
+         .pain-card {
+           background: var(--bg);
+           border: 1px solid var(--border);
+           border-radius: var(--radius-lg);
+           padding: 28px;
+           position: relative;
+           overflow: hidden;
+           transition: border-color 0.3s, transform 0.3s;
+         }
+
+         .pain-card:hover {
+           border-color: var(--border2);
+           transform: translateY(-3px);
+         }
+
+         .pain-card::before {
+           content: "";
+           position: absolute;
+           top: 0;
+           left: 0;
+           right: 0;
+           height: 2px;
+           background: linear-gradient(90deg, var(--red), transparent);
+           opacity: 0;
+           transition: opacity 0.3s;
+         }
+
+         .pain-card:hover::before {
+           opacity: 1;
+         }
+
+         .pain-icon {
+           font-size: 28px;
+           margin-bottom: 16px;
+         }
+         .pain-title {
+           font-size: 16px;
+           font-weight: 700;
+           color: white;
+           margin-bottom: 10px;
+         }
+         .pain-text {
+           font-size: 13px;
+           color: var(--muted);
+           line-height: 1.8;
+         }
+
+         /* ============================================================
+      FEATURES SECTION
+      ============================================================ */
+         #features {
+           background: var(--bg);
+         }
+
+         .features-layout {
+           display: flex;
+           flex-direction: column;
+           gap: 80px;
+         }
+
+         .feature-block {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 60px;
+           align-items: center;
+         }
+
+         .feature-block.reverse {
+           direction: ltr;
+         }
+         .feature-block.reverse .feature-content {
+           direction: rtl;
+         }
+         .feature-block.reverse .feature-visual {
+           direction: rtl;
+         }
+
+         .feature-tag {
+           display: inline-flex;
+           align-items: center;
+           gap: 6px;
+           font-size: 11px;
+           font-weight: 700;
+           letter-spacing: 1px;
+           background: rgba(255, 107, 53, 0.1);
+           color: var(--orange);
+           padding: 5px 12px;
+           border-radius: 20px;
+           margin-bottom: 16px;
+           font-family: "JetBrains Mono", monospace;
+         }
+
+         .feature-title {
+           font-family: "Syne", sans-serif;
+           font-size: 30px;
+           font-weight: 800;
+           color: white;
+           margin-bottom: 16px;
+           line-height: 1.2;
+           letter-spacing: -0.5px;
+         }
+
+         .feature-desc {
+           font-size: 15px;
+           color: var(--muted);
+           line-height: 1.9;
+           margin-bottom: 24px;
+         }
+
+         .feature-list {
+           list-style: none;
+         }
+
+         .feature-list li {
+           display: flex;
+           align-items: flex-start;
+           gap: 12px;
+           font-size: 14px;
+           color: var(--text);
+           padding: 8px 0;
+           border-bottom: 1px solid var(--border);
+         }
+
+         .feature-list li:last-child {
+           border-bottom: none;
+         }
+
+         .feature-list li::before {
+           content: "✓";
+           color: var(--green);
+           font-weight: 900;
+           font-size: 13px;
+           margin-top: 2px;
+           flex-shrink: 0;
+         }
+
+         /* Feature Visual Cards */
+         .feature-visual {
+           background: var(--bg2);
+           border: 1px solid var(--border2);
+           border-radius: var(--radius-lg);
+           {% comment %} padding: 24px; {% endcomment %}
+           box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+           min-height: 280px;
+         }
+
+         .fv-title {
+           font-size: 11px;
+           font-weight: 700;
+           letter-spacing: 1px;
+           text-transform: uppercase;
+           color: var(--muted);
+           margin-bottom: 16px;
+           font-family: "JetBrains Mono", monospace;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+         }
+
+         .fv-title::before {
+           content: "";
+           display: inline-block;
+           width: 6px;
+           height: 6px;
+           background: var(--orange);
+           border-radius: 50%;
+           animation: pulse 2s infinite;
+         }
+
+         /* ============================================================
+      HOW IT WORKS
+      ============================================================ */
+         #how {
+           background: var(--bg2);
+         }
+
+         .steps-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+           gap: 24px;
+           position: relative;
+         }
+
+         .steps-grid::before {
+           content: "";
+           position: absolute;
+           top: 40px;
+           left: 5%;
+           right: 5%;
+           height: 1px;
+           background: linear-gradient(
+             90deg,
+             transparent,
+             var(--border2),
+             var(--orange),
+             var(--border2),
+             transparent
+           );
+         }
+
+         .step-card {
+           background: var(--bg);
+           border: 1px solid var(--border);
+           border-radius: var(--radius-lg);
+           padding: 28px 24px;
+           text-align: center;
+           transition: all 0.3s;
+           position: relative;
+         }
+
+         .step-card:hover {
+           border-color: var(--orange);
+           transform: translateY(-4px);
+           box-shadow: 0 20px 40px rgba(255, 107, 53, 0.1);
+         }
+
+         .step-num {
+           font-family: "Syne", sans-serif;
+           font-size: 42px;
+           font-weight: 800;
+           color: rgba(255, 107, 53, 0.15);
+           position: absolute;
+           top: 16px;
+           right: 20px;
+           line-height: 1;
+         }
+
+         .step-icon {
+           font-size: 32px;
+           margin-bottom: 16px;
+         }
+         .step-title {
+           font-size: 16px;
+           font-weight: 700;
+           color: white;
+           margin-bottom: 10px;
+         }
+         .step-text {
+           font-size: 13px;
+           color: var(--muted);
+           line-height: 1.8;
+         }
+
+         /* ============================================================
+      PRICING
+      ============================================================ */
+         #pricing {
+           background: var(--bg);
+         }
+
+         .pricing-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+           gap: 24px;
+           max-width: 900px;
+           margin: 0 auto;
+         }
+
+         .pricing-card {
+           background: var(--bg2);
+           border: 1px solid var(--border2);
+           border-radius: var(--radius-lg);
+           padding: 36px 32px;
+           position: relative;
+           transition: transform 0.3s;
+         }
+
+         .pricing-card.featured {
+           border-color: var(--orange);
+           box-shadow: 0 0 0 1px rgba(255, 107, 53, 0.2),
+             0 30px 60px rgba(255, 107, 53, 0.08);
+         }
+
+         .pricing-card:hover {
+           transform: translateY(-4px);
+         }
+
+         .pricing-popular {
+           position: absolute;
+           top: -12px;
+           left: 50%;
+           transform: translateX(-50%);
+           background: var(--orange);
+           color: white;
+           font-size: 11px;
+           font-weight: 700;
+           padding: 4px 16px;
+           border-radius: 20px;
+           white-space: nowrap;
+           font-family: "JetBrains Mono", monospace;
+         }
+
+         .pricing-tier {
+           font-size: 12px;
+           color: var(--muted);
+           font-weight: 700;
+           letter-spacing: 2px;
+           text-transform: uppercase;
+           margin-bottom: 8px;
+           font-family: "JetBrains Mono", monospace;
+         }
+         .pricing-name {
+           font-family: "Syne", sans-serif;
+           font-size: 24px;
+           font-weight: 800;
+           color: white;
+           margin-bottom: 8px;
+         }
+         .pricing-desc {
+           font-size: 13px;
+           color: var(--muted);
+           margin-bottom: 24px;
+           line-height: 1.6;
+         }
+
+         .pricing-price {
+           margin-bottom: 28px;
+           padding-bottom: 28px;
+           border-bottom: 1px solid var(--border);
+         }
+
+         .pricing-amount {
+           font-family: "Syne", sans-serif;
+           font-size: 52px;
+           font-weight: 800;
+           color: white;
+           line-height: 1;
+         }
+
+         .pricing-amount .cur {
+           font-size: 22px;
+           color: var(--muted);
+           font-weight: 600;
+         }
+         .pricing-amount.free {
+           color: var(--green);
+           font-size: 36px;
+         }
+         .pricing-once {
+           font-size: 12px;
+           color: var(--muted);
+           margin-top: 6px;
+           font-family: "JetBrains Mono", monospace;
+         }
+
+         .pricing-features {
+           list-style: none;
+           margin-bottom: 28px;
+         }
+         .pricing-features li {
+           display: flex;
+           align-items: flex-start;
+           gap: 10px;
+           font-size: 13px;
+           color: var(--text);
+           padding: 8px 0;
+           border-bottom: 1px solid var(--border);
+         }
+
+         .pricing-features li:last-child {
+           border-bottom: none;
+         }
+
+         .pricing-features li .check {
+           color: var(--green);
+           font-weight: 900;
+           flex-shrink: 0;
+         }
+         .pricing-features li .x {
+           color: var(--muted2);
+           flex-shrink: 0;
+         }
+
+         /* ============================================================
+      TESTIMONIALS
+      ============================================================ */
+         #testimonials {
+           background: var(--bg2);
+         }
+
+         .testi-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+           gap: 20px;
+         }
+
+         .testi-card {
+           background: var(--bg);
+           border: 1px solid var(--border);
+           border-radius: var(--radius-lg);
+           padding: 28px;
+           position: relative;
+           transition: all 0.3s;
+         }
+
+         .testi-card:hover {
+           border-color: var(--border2);
+           transform: translateY(-3px);
+         }
+
+         .testi-quote {
+           font-size: 36px;
+           color: var(--orange);
+           opacity: 0.3;
+           line-height: 1;
+           margin-bottom: 12px;
+           font-family: "Syne", sans-serif;
+         }
+
+         .testi-text {
+           font-size: 14px;
+           color: var(--text);
+           line-height: 1.9;
+           margin-bottom: 20px;
+         }
+
+         .testi-footer {
+           display: flex;
+           align-items: center;
+           gap: 12px;
+         }
+
+         .testi-avatar {
+           width: 42px;
+           height: 42px;
+           border-radius: 50%;
+           display: grid;
+           place-items: center;
+           font-size: 16px;
+           font-weight: 700;
+           color: white;
+           flex-shrink: 0;
+         }
+
+         .testi-name {
+           font-size: 14px;
+           font-weight: 700;
+           color: white;
+         }
+         .testi-role {
+           font-size: 11px;
+           color: var(--muted);
+           margin-top: 2px;
+         }
+
+         .stars {
+           color: var(--yellow);
+           font-size: 12px;
+           margin-top: 4px;
+         }
+
+         /* ============================================================
+      FAQ
+      ============================================================ */
+         #faq {
+           background: var(--bg);
+         }
+
+         .faq-grid {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 16px;
+           max-width: 900px;
+           margin: 0 auto;
+         }
+
+         .faq-item {
+           background: var(--bg2);
+           border: 1px solid var(--border);
+           border-radius: var(--radius);
+           overflow: hidden;
+           transition: border-color 0.2s;
+         }
+
+         .faq-item:hover {
+           border-color: var(--border2);
+         }
+
+         .faq-q {
+           padding: 18px 20px;
+           font-size: 14px;
+           font-weight: 700;
+           color: white;
+           cursor: pointer;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           gap: 12px;
+           user-select: none;
+         }
+
+         .faq-q::after {
+           content: "+";
+           color: var(--orange);
+           font-size: 20px;
+           font-weight: 300;
+           flex-shrink: 0;
+           transition: transform 0.3s;
+         }
+
+         .faq-item.open .faq-q::after {
+           transform: rotate(45deg);
+         }
+
+         .faq-a {
+           max-height: 0;
+           overflow: hidden;
+           transition: max-height 0.4s ease, padding 0.3s;
+           font-size: 13px;
+           color: var(--muted);
+           line-height: 1.8;
+         }
+
+         .faq-item.open .faq-a {
+           max-height: 200px;
+           padding: 0 20px 18px;
+         }
+
+         /* ============================================================
+      CTA SECTION
+      ============================================================ */
+         #cta {
+           background: var(--bg2);
+           text-align: center;
+         }
+
+         .cta-inner {
+           max-width: 700px;
+           margin: 0 auto;
+           position: relative;
+           z-index: 1;
+         }
+
+         #cta::before {
+           content: "";
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           width: 500px;
+           height: 300px;
+           background: radial-gradient(
+             ellipse,
+             rgba(255, 107, 53, 0.1) 0%,
+             transparent 70%
+           );
+         }
+
+         .cta-title {
+           font-family: "Cairo", sans-serif;
+           font-size: clamp(32px, 5vw, 54px);
+           font-weight: 800;
+           line-height: 1.15;
+           margin-bottom: 20px;
+           color: white;
+           letter-spacing: -0.5px;
+         }
+
+         .cta-title span {
+           color: var(--orange);
+         }
+
+         .cta-sub {
+           font-size: 16px;
+           color: var(--muted);
+           margin-bottom: 40px;
+           line-height: 1.8;
+         }
+
+         .cta-buttons {
+           display: flex;
+           gap: 16px;
+           justify-content: center;
+           flex-wrap: wrap;
+           margin-bottom: 32px;
+         }
+
+         .cta-note {
+           font-size: 12px;
+           color: var(--muted2);
+           display: flex;
+           align-items: center;
+           gap: 8px;
+           justify-content: center;
+           flex-wrap: wrap;
+         }
+
+         .cta-note span {
+           display: flex;
+           align-items: center;
+           gap: 4px;
+         }
+         .cta-note span::before {
+           content: "✓";
+           color: var(--green);
+         }
+
+         /* ============================================================
+      FOOTER
+      ============================================================ */
+         footer {
+           background: var(--bg);
+           border-top: 1px solid var(--border);
+           padding: 60px 5% 40px;
+         }
+
+         .footer-inner {
+           max-width: 1200px;
+           margin: 0 auto;
+         }
+
+         .footer-top {
+           display: grid;
+           grid-template-columns: 2fr 1fr 1fr;
+           gap: 48px;
+           margin-bottom: 48px;
+           padding-bottom: 48px;
+           border-bottom: 1px solid var(--border);
+         }
+
+         .footer-brand .nav-logo {
+           margin-bottom: 16px;
+         }
+         .footer-about {
+           font-size: 13px;
+           color: var(--muted);
+           line-height: 1.8;
+           max-width: 280px;
+         }
+
+         .footer-col-title {
+           font-size: 12px;
+           font-weight: 700;
+           letter-spacing: 2px;
+           text-transform: uppercase;
+           color: var(--text);
+           margin-bottom: 16px;
+           font-family: "JetBrains Mono", monospace;
+         }
+
+         .footer-links {
+           list-style: none;
+         }
+         .footer-links li {
+           margin-bottom: 10px;
+         }
+         .footer-links a {
+           font-size: 13px;
+           color: var(--muted);
+           text-decoration: none;
+           transition: color 0.2s;
+         }
+         .footer-links a:hover {
+           color: var(--orange);
+         }
+
+         .footer-bottom {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           font-size: 12px;
+           color: var(--muted2);
+           flex-wrap: wrap;
+           gap: 12px;
+         }
+
+         .footer-bottom a {
+           color: var(--muted);
+           text-decoration: none;
+         }
+         .footer-bottom a:hover {
+           color: var(--orange);
+         }
+
+         /* ============================================================
+      SCROLL ANIMATIONS
+      ============================================================ */
+         .reveal {
+           opacity: 0;
+           transform: translateY(30px);
+           transition: opacity 0.7s ease, transform 0.7s ease;
+         }
+
+         .reveal.visible {
+           opacity: 1;
+           transform: translateY(0);
+         }
+
+         /* ============================================================
+      MOBILE MENU
+      ============================================================ */
+         .mobile-menu {
+           display: none;
+           position: fixed;
+           top: 68px;
+           left: 0;
+           right: 0;
+           background: rgba(8, 10, 14, 0.97);
+           backdrop-filter: blur(20px);
+           border-bottom: 1px solid var(--border);
+           padding: 20px 5%;
+           z-index: 99;
+           flex-direction: column;
+           gap: 4px;
+         }
+
+         .mobile-menu.open {
+           display: flex;
+         }
+
+         .mobile-menu a {
+           color: var(--text);
+           text-decoration: none;
+           font-size: 16px;
+           font-weight: 600;
+           padding: 12px 0;
+           border-bottom: 1px solid var(--border);
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+         }
+
+         .mobile-menu a::after {
+           content: "←";
+           color: var(--muted2);
+           font-size: 14px;
+         }
+         .mobile-menu a:last-child {
+           border-bottom: none;
+           color: var(--orange);
+         }
+
+         /* ============================================================
+      RESPONSIVE
+      ============================================================ */
+         @media (max-width: 900px) {
+           .hero-inner {
+             grid-template-columns: 1fr;
+           }
+           .hero-visual {
+             display: none;
+           }
+           .hero {
+             min-height: auto;
+             padding-top: 120px;
+           }
+
+           .feature-block,
+           .feature-block.reverse {
+             display: flex;
+             flex-direction: column;
+             gap: 20px;
+           }
+
+           .feature-block.reverse {
+             direction: inherit;
+           }
+
+           .feature-block.reverse .feature-content,
+           .feature-block.reverse .feature-visual {
+             direction: inherit;
+           }
+
+           .feature-block {
+             grid-template-columns: 1fr;
+           }
+
+           .feature-content {
+             order: 2;
+           }
+
+           .feature-visual {
+             order: 1;
+             width: 100%;
+             min-height: auto;
+             padding: 0;
+             background: transparent;
+             border: none;
+             box-shadow: none;
+             border-radius: 0;
+             overflow: hidden;
+           }
+
+           .mock-placeholder {
+             border-radius: 0;
+             box-shadow: none;
+           }
+
+           .faq-grid {
+             grid-template-columns: 1fr;
+           }
+
+           .footer-top {
+             grid-template-columns: 1fr;
+             gap: 32px;
+           }
+           .footer-about {
+             max-width: 100%;
+           }
+
+           .steps-grid::before {
+             display: none;
+           }
+         }
+
+         @media (max-width: 640px) {
+           section {
+             padding: 70px 5%;
+           }
+
+           .nav-links {
+             display: none;
+           }
+           .nav-hamburger {
+             display: flex;
+           }
+
+           .hero-stats {
+             flex-wrap: wrap;
+             gap: 20px;
+           }
+
+           .hero-actions {
+             flex-direction: column;
+           }
+           .btn-primary,
+           .btn-secondary {
+             width: 100%;
+             justify-content: center;
+           }
+
+           .pricing-grid {
+             grid-template-columns: 1fr;
+           }
+
+           .testi-grid {
+             grid-template-columns: 1fr;
+           }
+
+           .footer-bottom {
+             flex-direction: column;
+             text-align: center;
+           }
+         }
+    </style>
+  </head>
+  <body>
+    <!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+    <nav>
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-text">Fix<span>Flow</span></span>
+      </a>
+
+      <div class="nav-controls">
+        <ul class="nav-links">
+          <li><a href="#pain">المشكلة</a></li>
+          <li><a href="#features">المميزات</a></li>
+          <li><a href="#how">كيف يشتغل</a></li>
+          <li><a href="#pricing">الأسعار</a></li>
+          <li><a href="#faq">أسئلة</a></li>
+          <li><a href="#pricing" class="nav-cta">اشترِ الآن ←</a></li>
+        </ul>
+
+        <form
+          action="{% url 'set_language' %}"
+          method="post"
+          class="lang-switch"
+        >
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="next"
+            value="{{ request.get_full_path }}"
+          />
+          <input type="hidden" name="language" value="en" />
+          <button type="submit" class="lang-btn">EN</button>
+        </form>
+
+        <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#pain" onclick="toggleMenu()">المشكلة</a>
+      <a href="#features" onclick="toggleMenu()">المميزات</a>
+      <a href="#how" onclick="toggleMenu()">كيف يشتغل</a>
+      <a href="#pricing" onclick="toggleMenu()">الأسعار</a>
+      <a href="#faq" onclick="toggleMenu()">أسئلة شائعة</a>
+      <a href="#pricing" onclick="toggleMenu()">اشترِ الآن ←</a>
+    </div>
+
+    <!-- ============================================================
+     HERO
+     ============================================================ -->
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div class="hero-content reveal">
+          <div class="hero-badge">الإصدار 1.0 — جاهز الآن</div>
+
+          <h1 class="hero-title">
+            ورشتك<br />
+            <span class="line2">تحت سيطرتك</span><br />
+            بالكامل
+          </h1>
+
+          <p class="hero-sub">
+            FixFlow OS نظام إدارة ورشة صيانة موبايل متكامل. تتبع الطلبيات،
+            الزبائن، المالية، وسعّر بذكاء. كل شي في مكان واحد.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#pricing" class="btn-primary">ابدأ الآن — $49 فقط ←</a>
+            <a href="#pricing" class="btn-secondary">🎁 جرّب مجاناً</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num">10<span>+</span></span>
+              <div class="stat-label">وحدات متكاملة</div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">$<span>0</span></span>
+              <div class="stat-label">اشتراكات شهرية</div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">5<span>دق</span></span>
+              <div class="stat-label">للإعداد والتشغيل</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" style="transition-delay: 0.2s">
+          <img class="mock-placeholder"
+          src={% static 'images/hero.png' %}
+          alt="hero visual placeholder"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     PAIN SECTION
+     ============================================================ -->
+    <section id="pain">
+      <div class="section-inner">
+        <div class="reveal">
+          <div class="section-eyebrow">المشكلة</div>
+          <h2 class="section-title">الفوضى الكلنا بنعيشها</h2>
+          <p class="section-sub">
+            قبل FixFlow، كل فني صيانة يعيش نفس الكابوس اليومي.
+          </p>
+        </div>
+
+        <div class="pain-grid">
+          <div class="pain-card reveal">
+            <div class="pain-icon">📋</div>
+            <h3 class="pain-title">طلبيات ضايعة</h3>
+            <p class="pain-text">
+              ورق هنا وورق هناك. زبون يسأل "جهازي وين؟" وأنت تبحث في كومة أوراق.
+            </p>
+          </div>
+          <div class="pain-card reveal" style="transition-delay: 0.1s">
+            <div class="pain-icon">💸</div>
+            <h3 class="pain-title">حسابات غلط</h3>
+            <p class="pain-text">
+              آخر الشهر ما تعرف كسبت أو خسرت. ما في تسجيل منتظم للدخل
+              والمصاريف.
+            </p>
+          </div>
+          <div class="pain-card reveal" style="transition-delay: 0.2s">
+            <div class="pain-icon">🎲</div>
+            <h3 class="pain-title">تسعير عشوائي</h3>
+            <p class="pain-text">
+              أسعارك بتتغير على حسب المزاج. مرة تخسر و مرة تخسر الزبون. ما في
+              حساب صح.
+            </p>
+          </div>
+          <div class="pain-card reveal" style="transition-delay: 0.3s">
+            <div class="pain-icon">👤</div>
+            <h3 class="pain-title">زبائن مهملين</h3>
+            <p class="pain-text">
+              ما تتذكر من جاء قبل كذا و نوع الصيانة الاتعمل ليه. تاريخ الزبون ضايع وفرص البيع
+              الثاني بتفوتك.
+            </p>
+          </div>
+          <div class="pain-card reveal" style="transition-delay: 0.5s">
+            <div class="pain-icon">📊</div>
+            <h3 class="pain-title">لا بيانات لا قرارات</h3>
+            <p class="pain-text">
+              ما بتعرف أكثر عطل متكرر أو أحسن موسم. تشتغل على العمى بدون
+              معطيات.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     FEATURES
+     ============================================================ -->
+    <section id="features">
+      <div class="section-inner">
+        <div class="reveal">
+          <div class="section-eyebrow">المميزات</div>
+          <h2 class="section-title">كل شي في مكان واحد</h2>
+          <p class="section-sub">
+            أربع وحدات أساسية متكاملة صُممت خصيصاً لاحتياجات فني الصيانة اليومية.
+          </p>
+        </div>
+
+        <div class="features-layout">
+          <!-- Feature 1: Repairs Dashboard -->
+          <div class="feature-block reveal">
+            <div class="feature-content">
+              <div class="feature-tag">01 — لوحة الإصلاحات</div>
+              <h3 class="feature-title">تتبّع كل طلبية من أول ما تجي</h3>
+              <p class="feature-desc">
+                من لحظة استلام الجهاز لحد تسليمه، كل شي مُسجّل وواضح. تاريخ،
+                زبون، نوع العطل، السعر، الحالة.
+              </p>
+              <ul class="feature-list">
+                <li>حالات: انتظار / جاري التنفيذ / منتهي / تم التسليم</li>
+                <li>فلترة حسب الجهاز أو الزبون أو التاريخ</li>
+                <li>تنبيه للطلبيات المتأخرة</li>
+                <li>واجهة خاصه لتتبع الضمان</li>
+                <li>ربط مباشر مع ملف الزبون</li>
+                <li>ملاحظات خاصة لكل طلبية</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <img class="mock-placeholder"
+              src={% static 'images/repairs.png'%}
+              alt="Repairs visual placeholder" />
+            </div>
+          </div>
+
+          <!-- Feature 2: Finance -->
+          <div class="feature-block reverse reveal">
+            <div class="feature-visual">
+              <img class="mock-placeholder"
+              src={% static 'images/finance.png'%}
+              alt="Finance visual placeholder" />
+            </div>
+            <div class="feature-content">
+              <div class="feature-tag">02 — الدخل والمصاريف</div>
+              <h3 class="feature-title">اعرف أرباحك بالضبط</h3>
+              <p class="feature-desc">
+                سجّل كل قرش داخل وخارج. شوف ربحك اليومي والشهري والسنوي بأرقام
+                واضحة ومرئية.
+              </p>
+              <ul class="feature-list">
+                <li>تسجيل الدخل من كل إصلاح تلقائياً</li>
+                <li>تصنيف المصاريف: قطع، إيجار، أدوات</li>
+                <li>رسوم بيانية شهرية وسنوية</li>
+                <li>مقارنة الدخل مع الهدف المحدد</li>
+                <li>تقرير الأرباح الصافية</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Feature 3: CRM -->
+          <div class="feature-block reveal">
+            <div class="feature-content">
+              <div class="feature-tag">03 — إدارة الزبائن</div>
+              <h3 class="feature-title">كل زبون ومعاه تاريخ كامل</h3>
+              <p class="feature-desc">
+                من أول ما الزبون يجيك، معلوماته وكل الأجهزة اللي عملها عندك
+                محفوظة للأبد.
+              </p>
+              <ul class="feature-list">
+                <li>بطاقة زبون كاملة: الاسم، التواصل، الملاحظات</li>
+                <li>كل الأجهزة والإصلاحات المرتبطة</li>
+                <li>تاريخ آخر زيارة وعدد الطلبيات</li>
+                <li>إجمالي الدخل من كل زبون</li>
+                <li>تصنيف الزبائن الأكثر ولاءً</li>
+              </ul>
+            </div>
+            <div class="feature-visual">
+              <img class="mock-placeholder"
+              src={% static 'images/crm.png' %}
+              alt="CRM visual placeholder" />
+            </div>
+          </div>
+
+          <!-- Feature 4: Pricing Calculator -->
+          <div class="feature-block reverse reveal">
+            <div class="feature-visual">
+              <img class="mock-placeholder"
+              src={% static 'images/pricing.png'%}
+              alt="Pricing calculator placeholder" />
+            </div>
+            <div class="feature-content">
+              <div class="feature-tag">04 — حاسبة التسعير</div>
+              <h3 class="feature-title">سعّر بذكاء ما بخسارة</h3>
+              <p class="feature-desc">
+                أدخّل تكلفة القطع وساعات الشغل والربح المستهدف — الحاسبة تطلع لك
+                السعر الصح تلقائياً.
+              </p>
+              <ul class="feature-list">
+                <li>حساب تلقائي لتكاليف القطع والعمالة</li>
+                <li>هامش الربح قابل للتخصيص لكل نوع إصلاح</li>
+                <li>مقارنة أسعارك مع السوق</li>
+                <li>حفظ تسعيرات للإصلاحات الشائعة</li>
+                <li>متاحة مجاناً كأداة مستقلة</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+    <section id="how">
+      <div class="section-inner">
+        <div class="reveal" style="text-align: center">
+          <div class="section-eyebrow">كيف يشتغل</div>
+          <h2 class="section-title">من الشراء للتشغيل في دقائق</h2>
+          <p class="section-sub" style="margin: 0 auto 60px">
+           ما محتاج خبرة تقنية. ما محتاج تنزيل برامج. فقط اتبع الخطوات.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card reveal">
+            <span class="step-num">01</span>
+            <div class="step-icon">💳</div>
+            <h3 class="step-title">اشترِ مرة واحدة</h3>
+            <p class="step-text">
+              ادفع $49 على Payhip. دفعة واحدة — بدون اشتراكات شهرية أو رسوم
+              خفية.
+            </p>
+          </div>
+          <div class="step-card reveal" style="transition-delay: 0.1s">
+            <span class="step-num">02</span>
+            <div class="step-icon">📦</div>
+            <h3 class="step-title">استلم النظام</h3>
+            <p class="step-text">
+              تصلك رسالة فيها رابط Notion لنسخة FixFlow OS الخاصة فيك ودليل
+              الاستخدام.
+            </p>
+          </div>
+          <div class="step-card reveal" style="transition-delay: 0.2s">
+            <span class="step-num">03</span>
+            <div class="step-icon">⚙️</div>
+            <h3 class="step-title">خصّص البيانات</h3>
+            <p class="step-text">
+              أضف اسم ورشتك وبيانات الزبائن والإصلاحات. النظام جاهز ومهيأ
+              مسبقاً.
+            </p>
+          </div>
+          <div class="step-card reveal" style="transition-delay: 0.3s">
+            <span class="step-num">04</span>
+            <div class="step-icon">🚀</div>
+            <h3 class="step-title">ابدأ الشغل</h3>
+            <p class="step-text">
+              شغّل FixFlow من موبايلك أو لاب توبك في أي وقت ومن أي مكان.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     PRICING
+     ============================================================ -->
+    <section id="pricing">
+      <div class="section-inner">
+        <div class="reveal" style="text-align: center">
+          <div class="section-eyebrow">الأسعار</div>
+          <h2 class="section-title">واضح ومباشر</h2>
+          <p class="section-sub" style="margin: 0 auto 60px">
+            لا مفاجآت. لا اشتراكات. ادفع مرة وملكك للأبد.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card reveal">
+            <div class="pricing-tier">مجاني</div>
+            <div class="pricing-name">حاسبة التسعير</div>
+            <div class="pricing-desc">
+              ابدأ بالأداة المجانية واكتشف FixFlow قبل الشراء.
+            </div>
+            <div class="pricing-price">
+              <div class="pricing-amount free">مجاني</div>
+              <div class="pricing-once">للأبد — بدون بطاقة</div>
+            </div>
+            <ul class="pricing-features">
+              <li><span class="check">✓</span> حاسبة التسعير الذكية كاملة</li>
+              <li><span class="check">✓</span> حساب التكاليف والأرباح</li>
+              <li><span class="check">✓</span> حفظ أسعار الإصلاحات الشائعة</li>
+              <li>
+                <span class="x">✗</span>
+                <span style="color: var(--muted2)">لوحة الإصلاحات</span>
+              </li>
+              <li>
+                <span class="x">✗</span>
+                <span style="color: var(--muted2)">إدارة الزبائن</span>
+              </li>
+              <li>
+                <span class="x">✗</span>
+                <span style="color: var(--muted2)">الدخل والمصاريف</span>
+              </li>
+            </ul>
+            <a
+              href="{{ free_tool_url }}"
+              class="btn-secondary"
+              style="width: 100%; justify-content: center; text-align: center"
+              >احصل عليها مجاناً</a
+            >
+          </div>
+
+          <div
+            class="pricing-card featured reveal"
+            style="transition-delay: 0.15s"
+          >
+            <div class="pricing-popular">الأكثر طلباً ★</div>
+            <div class="pricing-tier">كامل</div>
+            <div class="pricing-name">FixFlow OS</div>
+            <div class="pricing-desc">
+              النظام الكامل لإدارة ورشة صيانة احترافية.
+            </div>
+            <div class="pricing-price">
+              <div class="pricing-amount"><span class="cur">$</span>49</div>
+              <div class="pricing-once">دفعة واحدة — ملكك للأبد</div>
+            </div>
+            <ul class="pricing-features">
+              <li><span class="check">✓</span> لوحة إدارة الإصلاحات الكاملة</li>
+              <li><span class="check">✓</span> تتبع الدخل والمصاريف</li>
+              <li><span class="check">✓</span> إدارة الزبائن (CRM)</li>
+              <li><span class="check">✓</span> حاسبة التسعير الذكية</li>
+              <li><span class="check">✓</span> تقارير وإحصاءات كاملة</li>
+              <li>
+                <span class="check">✓</span> دليل استخدام + فيديوهات تعليمية
+              </li>
+              <li><span class="check">✓</span> تحديثات مجانية مدى الحياة</li>
+              <li><span class="check">✓</span> دعم مباشر من المطور</li>
+            </ul>
+            <a
+              href="{{ payhip_url}}"
+              class="btn-primary"
+              style="width: 100%; justify-content: center; text-align: center"
+              >اشترِ الآن — $49 ←</a
+            >
+          </div>
+        </div>
+
+        <div class="reveal" style="text-align: center; margin-top: 32px">
+          <p
+            style="
+              font-size: 13px;
+              color: var(--muted);
+              display: flex;
+              gap: 24px;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <span>✓ دفع آمن عبر PayPal</span>
+            <span>✓ تسليم فوري</span>
+            <span>✓ لا اشتراكات شهرية</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+    <section id="testimonials">
+      <div class="section-inner">
+        <div class="reveal" style="text-align: center">
+          <div class="section-eyebrow">آراء الفنيين</div>
+          <h2 class="section-title">قالوا عن FixFlow</h2>
+          <p class="section-sub" style="margin: 0 auto 60px">
+            فنيون من أكثر من 10 دول جربوا FixFlow وشاركوا تجربتهم.
+          </p>
+        </div>
+
+        <div class="testi-grid">
+          <div class="testi-card reveal">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">
+              قبل FixFlow كنت خسران كل شهر وما أعرف ليش. بعد ما استخدمته اكتشفت
+              إن مصاريفي كانت أكثر من دخلي بكثير. الأن أنا في أحسن شهر في حياتي
+              كفني.
+            </p>
+            <div class="testi-footer">
+              <div
+                class="testi-avatar"
+                style="background: linear-gradient(135deg, #ff6b35, #ff8c5a)"
+              >
+                خ
+              </div>
+              <div>
+                <div class="testi-name">خالد المطيري</div>
+                <div class="testi-role">فني صيانة — الرياض، السعودية</div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card reveal" style="transition-delay: 0.15s">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">
+              حاسبة التسعير وحدها تساوي أكثر من $49. كنت أسعّر بطريقة غلط وأخسر
+              في كل إصلاح. الأن دخلي زاد 35% في شهرين بس.
+            </p>
+            <div class="testi-footer">
+              <div
+                class="testi-avatar"
+                style="background: linear-gradient(135deg, #3b82f6, #60a5fa)"
+              >
+                ع
+              </div>
+              <div>
+                <div class="testi-name">عمر حسن</div>
+                <div class="testi-role">صاحب محل — الإسكندرية، مصر</div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card reveal" style="transition-delay: 0.3s">
+            <div class="testi-quote">"</div>
+            <p class="testi-text">
+              الشي اللي عجبني أكثر هو إدارة الزبائن. أعرف الآن مين زبوني الأهم
+              ومين ما يرجع. غيّرت استراتيجيتي وزاد عدد الزبائن المتكررين.
+            </p>
+            <div class="testi-footer">
+              <div
+                class="testi-avatar"
+                style="background: linear-gradient(135deg, #22c55e, #4ade80)"
+              >
+                م
+              </div>
+              <div>
+                <div class="testi-name">مصطفى إبراهيم</div>
+                <div class="testi-role">فني مستقل — الخرطوم، السودان</div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     FAQ
+     ============================================================ -->
+    <section id="faq">
+      <div class="section-inner">
+        <div class="reveal" style="text-align: center">
+          <div class="section-eyebrow">أسئلة شائعة</div>
+          <h2 class="section-title">عندك سؤال؟</h2>
+          <p class="section-sub" style="margin: 0 auto 60px">
+            الأسئلة الأكثر شيوعاً من الفنيين قبل الشراء.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item reveal">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              ما هو FixFlow وكيف يشتغل؟
+            </div>
+            <div class="faq-a">
+              FixFlow OS نظام Notion جاهز ومهيأ خصيصاً لإدارة ورشة صيانة
+              الموبايل. بعد الشراء تحصل على نسخة Notion خاصة فيك تشتغل عليها
+              مباشرة من أي جهاز.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay: 0.05s">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              هل أحتاج اشتراك Notion مدفوع؟
+            </div>
+            <div class="faq-a">
+              لأ — الخطة المجانية في Notion تكفي تماماً لتشغيل FixFlow بكل
+              مميزاته. ما تحتاج تدفع أي شي إضافي.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay: 0.1s">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              هل أقدر أشتغل من الموبايل؟
+            </div>
+            <div class="faq-a">
+              نعم بالكامل. Notion عنده تطبيق موبايل ممتاز. تقدر تتابع الطلبيات
+              وتضيف زبائن وتشوف التقارير من موبايلك في أي وقت.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay: 0.15s">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              هل فيه اشتراكات شهرية؟
+            </div>
+            <div class="faq-a">
+              لأ إطلاقاً. دفعة واحدة $49 وملكك للأبد. ما في أي رسوم إضافية أو
+              اشتراكات. حتى التحديثات المستقبلية مجانية.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay: 0.2s">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              كيف أستلم المنتج بعد الشراء؟
+            </div>
+            <div class="faq-a">
+              فور الدفع تصلك رسالة على إيميلك فيها رابط Notion الخاص فيك + دليل
+              الاستخدام + روابط الفيديوهات التعليمية. كل شي جاهز في دقائق.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay: 0.3s">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              هل يناسب الورشة الصغيرة؟
+            </div>
+            <div class="faq-a">
+              FixFlow مصمم أساساً للفني المستقل والورشة الصغيرة. سواء تشتغل
+              لوحدك أو معك موظف واحد أو اثنين، النظام يناسبك تماماً.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay: 0.35s">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              ما الفرق بين الحاسبة المجانية والنظام الكامل؟
+            </div>
+            <div class="faq-a">
+              الحاسبة المجانية هي أداة التسعير فقط — تساعدك تحسب الأسعار الصح.
+              النظام الكامل يشمل الحاسبة + لوحة الإصلاحات + إدارة الزبائن +
+              التقارير.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     CTA
+     ============================================================ -->
+    <section id="cta">
+      <div class="section-inner">
+        <div class="cta-inner reveal">
+          <h2 class="cta-title">
+            ورشتك تستاهل<br />
+            <span>نظام احترافي</span>
+          </h2>
+          <p class="cta-sub">
+            انضم لفنيين من أكثر من 10 دول يديرون ورشهم بذكاء مع FixFlow OS.<br />
+            ابدأ اليوم — مجاناً أو بـ $49 فقط.
+          </p>
+          <div class="cta-buttons">
+            <a
+              href="{{ payhip_url }}"
+              class="btn-primary"
+              style="font-size: 16px; padding: 16px 36px"
+              >اشترِ الآن — $49 ←</a
+            >
+            <a
+              href="{{ free_tool_url }}"
+              class="btn-secondary"
+              style="font-size: 16px; padding: 16px 36px"
+              >🎁 حاسبة مجانية</a
+            >
+          </div>
+          <div class="cta-note">
+            <span>دفع آمن</span>
+            <span>تسليم فوري</span>
+            <span>لا اشتراكات</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="#" class="nav-logo">
+              <span class="nav-logo-text">Fix<span>Flow</span> OS</span>
+            </a>
+            <p class="footer-about">
+              نظام إدارة ورشة صيانة الموبايل المتكامل. صُمم من فني صيانة لفنيي
+              الصيانة في كل مكان.
+            </p>
+          </div>
+          <div>
+            <div class="footer-col-title">روابط</div>
+            <ul class="footer-links">
+              <li><a href="#pain">المشكلة</a></li>
+              <li><a href="#features">المميزات</a></li>
+              <li><a href="#how">كيف يشتغل</a></li>
+              <li><a href="#pricing">الأسعار</a></li>
+              <li><a href="#faq">أسئلة شائعة</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="footer-col-title">تواصل</div>
+            <ul class="footer-links">
+              <li><a href="mailto:alwaleedmusa249@gmail.com">البريد الإلكتروني</a></li>
+              <li><a href="https://www.youtube.com/@TheRepairGuy249">Youtube</a></li>
+              <li><a href="https://www.tiktok.com/@therepairguy249">TikTok</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© {% now "Y" %} FixFlow OS · TheRepairGuy</span>
+          <span>صُنع بـ ❤️ من فني لفني</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+    <script>
+      // Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      );
+
+      reveals.forEach((el) => observer.observe(el));
+
+      // Mobile menu
+      function toggleMenu() {
+        const menu = document.getElementById("mobileMenu");
+        menu.classList.toggle("open");
+      }
+
+      // Close menu on outside click
+      document.addEventListener("click", (e) => {
+        const menu = document.getElementById("mobileMenu");
+        const hamburger = document.getElementById("hamburger");
+        if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+          menu.classList.remove("open");
+        }
+      });
+
+      // FAQ toggle
+      function toggleFaq(el) {
+        const item = el.parentElement;
+        const allItems = document.querySelectorAll(".faq-item");
+        allItems.forEach((i) => {
+          if (i !== item) i.classList.remove("open");
+        });
+        item.classList.toggle("open");
+      }
+
+      // Smooth scroll nav active state
+      window.addEventListener("scroll", () => {
+        const nav = document.querySelector("nav");
+        nav.style.background =
+          window.scrollY > 50 ? "rgba(8,10,14,0.97)" : "rgba(8,10,14,0.85)";
+      });
+    </script>
+  </body>
+</html>

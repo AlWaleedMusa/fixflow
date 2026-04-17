@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FixFlow OS — Notion Mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ======================================================
+   NOTION DESIGN SYSTEM — Accurate reproduction
+   ====================================================== */
+:root {
+  --notion-bg:         #FFFFFF;
+  --notion-sidebar:    #F7F7F5;
+  --notion-hover:      #EFEFEF;
+  --notion-border:     #E8E8E8;
+  --notion-text:       #37352F;
+  --notion-text2:      #787774;
+  --notion-text3:      #ACABA8;
+  --notion-icon:       #787774;
+  --notion-blue:       #2383E2;
+  --notion-blue-bg:    #E7F3FB;
+  --notion-green:      #0F7B6C;
+  --notion-green-bg:   #DCFFF1;
+  --notion-red:        #EB5757;
+  --notion-red-bg:     #FFE2DD;
+  --notion-yellow:     #DFAB01;
+  --notion-yellow-bg:  #FDECC8;
+  --notion-gray-bg:    #F1F1EF;
+  --notion-purple:     #9065B0;
+  --notion-purple-bg:  #F4EEFD;
+  --notion-orange:     #D9730D;
+  --notion-orange-bg:  #FADEC9;
+  --notion-pink:       #AD1A72;
+  --notion-pink-bg:    #F5E0EF;
+  --notion-brown:      #64473A;
+  --notion-brown-bg:   #EEE0DA;
+  --notion-shadow:     0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --notion-shadow-md:  0 4px 12px rgba(0,0,0,0.08);
+  --notion-radius:     3px;
+  --notion-radius-md:  6px;
+  --notion-font:       'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1A1A1A;
+  font-family: var(--notion-font);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+/* ======================================================
+   EXPORT WRAPPER — Each mockup is a named section
+   ====================================================== */
+.mockup-section {
+  width: 100%;
+  max-width: 1100px;
+}
+
+.mockup-label {
+  font-family: var(--notion-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 12px;
+  padding-right: 4px;
+}
+
+/* ======================================================
+   NOTION CHROME — Window frame
+   ====================================================== */
+.notion-window {
+  background: var(--notion-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+/* macOS titlebar */
+.titlebar {
+  background: var(--notion-sidebar);
+  border-bottom: 1px solid var(--notion-border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.traffic-lights { display: flex; gap: 6px; }
+.tl { width: 12px; height: 12px; border-radius: 50%; }
+.tl.r { background: #FF5F57; }
+.tl.y { background: #FFBD2E; }
+.tl.g { background: #28CA42; }
+
+.titlebar-center {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  color: var(--notion-text2);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ======================================================
+   NOTION LAYOUT — Sidebar + Content
+   ====================================================== */
+.notion-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 520px;
+}
+
+/* Sidebar */
+.notion-sidebar {
+  background: var(--notion-sidebar);
+  border-right: 1px solid var(--notion-border);
+  padding: 12px 8px;
+}
+
+.sidebar-workspace {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: var(--notion-radius-md);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.sidebar-workspace:hover { background: var(--notion-hover); }
+
+.ws-icon {
+  width: 22px; height: 22px;
+  background: linear-gradient(135deg, #FF6B35, #FF8C5A);
+  border-radius: 4px;
+  display: grid; place-items: center;
+  font-size: 11px;
+  color: white;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ws-name { font-size: 13px; font-weight: 600; color: var(--notion-text); flex: 1; }
+.ws-chevron { font-size: 10px; color: var(--notion-text3); }
+
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: var(--notion-radius-md);
+  color: var(--notion-text2);
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.sidebar-search:hover { background: var(--notion-hover); }
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border-radius: var(--notion-radius-md);
+  color: var(--notion-text2);
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 1px;
+}
+
+.sidebar-item:hover { background: var(--notion-hover); color: var(--notion-text); }
+.sidebar-item.active { background: var(--notion-hover); color: var(--notion-text); font-weight: 500; }
+
+.sidebar-icon { font-size: 14px; flex-shrink: 0; }
+
+.sidebar-section {
+  padding: 16px 8px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--notion-text3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Notion Content Area */
+.notion-content {
+  background: var(--notion-bg);
+  overflow: hidden;
+}
+
+/* Page header */
+.page-header {
+  padding: 48px 60px 24px;
+}
+
+.page-icon-large { font-size: 52px; margin-bottom: 12px; display: block; }
+
+.page-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--notion-text);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: var(--notion-text2);
+  line-height: 1.5;
+}
+
+/* ======================================================
+   NOTION CALLOUT
+   ====================================================== */
+.notion-callout {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--notion-radius-md);
+  margin: 0 60px 16px;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.notion-callout.green { background: var(--notion-green-bg); }
+.notion-callout.gray  { background: var(--notion-gray-bg); }
+.notion-callout.blue  { background: var(--notion-blue-bg); }
+
+.callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+.callout-body { flex: 1; color: var(--notion-text); }
+.callout-body strong { font-weight: 600; }
+
+.callout-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--notion-text);
+  margin-bottom: 8px;
+}
+
+.callout-body ol { padding-right: 20px; margin-top: 4px; }
+.callout-body li { margin-bottom: 4px; font-size: 13px; }
+
+/* ======================================================
+   NOTION COLUMNS
+   ====================================================== */
+.notion-columns {
+  display: grid;
+  gap: 16px;
+  padding: 0 60px 16px;
+}
+
+.notion-columns.two { grid-template-columns: 1fr 1fr; }
+.notion-columns.three { grid-template-columns: 1fr 1fr 1fr; }
+
+/* ======================================================
+   ACTION BUTTONS — Notion style
+   ====================================================== */
+.notion-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--notion-text);
+  color: white;
+  border: none;
+  border-radius: var(--notion-radius-md);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--notion-font);
+  cursor: pointer;
+  margin-bottom: 6px;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.notion-btn.green  { background: #0F7B6C; }
+.notion-btn.blue   { background: #2383E2; }
+.notion-btn.gray   { background: #787774; }
+.notion-btn.danger { background: #EB5757; }
+
+.actions-callout {
+  background: var(--notion-gray-bg);
+  border-radius: var(--notion-radius-md);
+  padding: 14px 16px;
+}
+
+.actions-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--notion-text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ======================================================
+   PERFORMANCE CALLOUT
+   ====================================================== */
+.perf-callout {
+  background: var(--notion-gray-bg);
+  border-radius: var(--notion-radius-md);
+  padding: 14px 16px;
+}
+
+.perf-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--notion-text);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.perf-sub {
+  font-size: 12px;
+  color: var(--notion-text2);
+  margin-bottom: 12px;
+}
+
+.kpi-row { display: flex; gap: 8px; }
+
+.kpi-pill {
+  flex: 1;
+  background: white;
+  border: 1px solid var(--notion-border);
+  border-radius: var(--notion-radius-md);
+  padding: 8px 12px;
+}
+
+.kpi-label { font-size: 10px; color: var(--notion-text2); font-weight: 500; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.3px; }
+.kpi-value { font-size: 18px; font-weight: 700; color: var(--notion-text); }
+.kpi-value.green  { color: var(--notion-green); }
+.kpi-value.red    { color: var(--notion-red); }
+.kpi-value.orange { color: var(--notion-orange); }
+
+/* ======================================================
+   NOTION TABLE — Database Table View
+   ====================================================== */
+.notion-table-wrapper {
+  padding: 0 60px 24px;
+}
+
+.notion-db-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.db-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.db-icon { font-size: 15px; }
+.db-name { font-size: 14px; font-weight: 600; color: var(--notion-text); }
+
+.db-views {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 0;
+}
+
+.db-view-tab {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--notion-text2);
+  padding: 4px 10px;
+  border-radius: var(--notion-radius-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.db-view-tab:hover { background: var(--notion-hover); }
+.db-view-tab.active { background: var(--notion-hover); color: var(--notion-text); font-weight: 600; }
+
+.db-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.db-toolbar-btn {
+  font-size: 12px;
+  color: var(--notion-text2);
+  padding: 4px 8px;
+  border-radius: var(--notion-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.db-toolbar-btn:hover { background: var(--notion-hover); }
+
+.notion-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border: 1px solid var(--notion-border);
+  border-radius: var(--notion-radius-md);
+  overflow: hidden;
+}
+
+.notion-table th {
+  background: var(--notion-sidebar);
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--notion-text2);
+  border-bottom: 1px solid var(--notion-border);
+  border-right: 1px solid var(--notion-border);
+  white-space: nowrap;
+}
+
+.notion-table th:last-child { border-right: none; }
+
+.notion-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--notion-border);
+  border-right: 1px solid var(--notion-border);
+  color: var(--notion-text);
+  vertical-align: middle;
+}
+
+.notion-table td:last-child { border-right: none; }
+.notion-table tr:last-child td { border-bottom: none; }
+.notion-table tr:hover td { background: #FAFAF9; }
+
+.notion-table td.title-cell { font-weight: 500; }
+
+/* ======================================================
+   NOTION TAGS / BADGES
+   ====================================================== */
+.n-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.n-tag.blue   { background: var(--notion-blue-bg);   color: #1A73E8; }
+.n-tag.green  { background: var(--notion-green-bg);  color: #0F7B6C; }
+.n-tag.red    { background: var(--notion-red-bg);    color: #EB5757; }
+.n-tag.yellow { background: var(--notion-yellow-bg); color: #CB912F; }
+.n-tag.gray   { background: var(--notion-gray-bg);   color: #787774; }
+.n-tag.purple { background: var(--notion-purple-bg); color: #9065B0; }
+.n-tag.orange { background: var(--notion-orange-bg); color: #D9730D; }
+.n-tag.pink   { background: var(--notion-pink-bg);   color: #AD1A72; }
+.n-tag.brown  { background: var(--notion-brown-bg);  color: #64473A; }
+
+/* Status with dot */
+.n-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.n-status::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.n-status.new       { background: var(--notion-gray-bg); color: #787774; }
+.n-status.new::before { background: #787774; }
+.n-status.inprog    { background: var(--notion-blue-bg); color: #1A73E8; }
+.n-status.inprog::before { background: #1A73E8; }
+.n-status.waiting   { background: var(--notion-red-bg); color: #EB5757; }
+.n-status.waiting::before { background: #EB5757; }
+.n-status.ready     { background: var(--notion-yellow-bg); color: #CB912F; }
+.n-status.ready::before { background: #CB912F; }
+.n-status.collected { background: var(--notion-green-bg); color: #0F7B6C; }
+.n-status.collected::before { background: #0F7B6C; }
+
+/* Number cell */
+.num-cell { font-variant-numeric: tabular-nums; }
+
+/* Alarm / formula */
+.alarm-flag { font-size: 13px; }
+.wa-link { color: var(--notion-green); font-size: 12px; text-decoration: underline; cursor: pointer; }
+
+/* ======================================================
+   NOTION BOARD VIEW
+   ====================================================== */
+.notion-board {
+  padding: 0 60px 24px;
+  overflow-x: auto;
+}
+
+.board-columns {
+  display: flex;
+  gap: 12px;
+  min-width: max-content;
+}
+
+.board-col {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.board-col-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: var(--notion-radius-md);
+  margin-bottom: 8px;
+}
+
+.board-col-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.board-col-name { font-size: 12px; font-weight: 600; color: var(--notion-text2); flex: 1; }
+.board-col-count { font-size: 11px; color: var(--notion-text3); background: var(--notion-hover); padding: 1px 6px; border-radius: 20px; }
+
+.board-card {
+  background: white;
+  border: 1px solid var(--notion-border);
+  border-radius: var(--notion-radius-md);
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  box-shadow: var(--notion-shadow);
+  transition: box-shadow 0.15s;
+}
+
+.board-card:hover { box-shadow: var(--notion-shadow-md); }
+
+.board-card-title { font-size: 12.5px; font-weight: 500; color: var(--notion-text); margin-bottom: 8px; line-height: 1.4; }
+
+.board-card-props { display: flex; flex-direction: column; gap: 4px; }
+
+.board-prop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--notion-text2);
+}
+
+.board-prop-label { color: var(--notion-text3); min-width: 70px; }
+
+.board-add-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: var(--notion-radius-md);
+  color: var(--notion-text2);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.board-add-card:hover { background: var(--notion-hover); }
+
+/* ======================================================
+   PRICING CALCULATOR PAGE
+   ====================================================== */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border: 1px solid var(--notion-border);
+  border-radius: var(--notion-radius-md);
+  overflow: hidden;
+}
+
+.pricing-table th {
+  background: var(--notion-sidebar);
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--notion-text2);
+  border-bottom: 1px solid var(--notion-border);
+  border-right: 1px solid var(--notion-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.pricing-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--notion-border);
+  border-right: 1px solid var(--notion-border);
+  color: var(--notion-text);
+}
+
+.pricing-table tr:last-child td { border-bottom: none; }
+.pricing-table tr:hover td { background: #FAFAF9; }
+
+.price-tier {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-tier-main { font-weight: 700; font-size: 14px; }
+.price-tier-label { font-size: 10px; color: var(--notion-text3); margin-top: 1px; }
+
+.price-green { color: var(--notion-green); }
+.price-blue  { color: var(--notion-blue); }
+.price-orange{ color: var(--notion-orange); }
+
+/* ======================================================
+   INCOME & EXPENSES PAGE
+   ====================================================== */
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border: 1px solid var(--notion-border);
+  border-radius: var(--notion-radius-md);
+  overflow: hidden;
+}
+
+.finance-table th {
+  background: var(--notion-sidebar);
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--notion-text2);
+  border-bottom: 1px solid var(--notion-border);
+  border-right: 1px solid var(--notion-border);
+  text-align: left;
+}
+
+.finance-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--notion-border);
+  border-right: 1px solid var(--notion-border);
+  color: var(--notion-text);
+}
+
+.finance-table tr:last-child td { border-bottom: none; }
+.finance-table tr:hover td { background: #FAFAF9; }
+
+/* ======================================================
+   MONTHLY SUMMARY MINI TABLE
+   ====================================================== */
+.monthly-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 12px;
+  background: var(--notion-gray-bg);
+  border-radius: var(--notion-radius-md);
+  margin-top: 12px;
+}
+
+.month-box {
+  background: white;
+  border: 1px solid var(--notion-border);
+  border-radius: var(--notion-radius);
+  padding: 8px 10px;
+}
+
+.month-label { font-size: 10px; color: var(--notion-text3); font-weight: 500; margin-bottom: 4px; }
+.month-val { font-size: 15px; font-weight: 700; color: var(--notion-text); }
+.month-val.green { color: var(--notion-green); }
+.month-val.red   { color: var(--notion-red); }
+.month-val.orange{ color: var(--notion-orange); }
+
+/* ======================================================
+   EXPORT HINT
+   ====================================================== */
+.export-hint {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+  font-family: var(--notion-font);
+}
+
+/* no sidebar variant */
+.notion-layout.no-sidebar .notion-content {
+  grid-column: 1 / -1;
+}
+</style>
+</head>
+<body>
+
+<!-- ==============================================================
+     MOCKUP 1: REPAIRS DASHBOARD — TABLE VIEW (Active Repairs)
+     ============================================================== -->
+<div class="mockup-section" id="mockup-repairs">
+  <p class="mockup-label">Mockup 1 — Repairs Dashboard · Active Repairs View</p>
+  <div class="notion-window">
+
+    <!-- Titlebar -->
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="tl r"></div><div class="tl y"></div><div class="tl g"></div>
+      </div>
+      <div class="titlebar-center">
+        <span>🛠️</span> Repairs Dashboard — FixFlow OS
+      </div>
+    </div>
+
+    <!-- Layout -->
+    <div class="notion-layout">
+
+      <!-- Sidebar -->
+      <div class="notion-sidebar">
+        <div class="sidebar-workspace">
+          <div class="ws-icon">⚡</div>
+          <span class="ws-name">FixFLow</span>
+          <span class="ws-chevron">▾</span>
+        </div>
+        <div class="sidebar-search">🔍 Search</div>
+        <div class="sidebar-item">🏠 Home</div>
+        <div class="sidebar-item">📥 Inbox</div>
+        <div class="sidebar-section">Private</div>
+        <div class="sidebar-item active">🛠️ Repairs Dashboard</div>
+        <div class="sidebar-item">💸 Income & Expenses</div>
+        <div class="sidebar-item">👥 Customer CRM</div>
+        <div class="sidebar-item">🧮 Pricing Calculator</div>
+        <div class="sidebar-item">🧾 Invoices</div>
+      </div>
+
+      <!-- Content -->
+      <div class="notion-content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <span class="page-icon-large">🛠️</span>
+          <h1 class="page-title">Repairs Dashboard</h1>
+          <p class="page-subtitle">A high-performance system to manage phone repairs from check-in to cash-out.<br>⚡ Add new repair · 📊 Real-time income · 🏗️ Drag-and-drop board · 📲 WhatsApp messaging</p>
+        </div>
+
+        <!-- Callout -->
+        <div class="notion-callout green">
+          <span class="callout-icon">🚀</span>
+          <div class="callout-body">
+            <div class="callout-title">Quick Start Guide: Repairs Dashboard</div>
+            <ol>
+              <li><strong>Add a Repair:</strong> Click the <strong>Add New Repair</strong> button below to start a ticket.</li>
+              <li><strong>Message Customer:</strong> Make sure to write the customer phone number <u>with</u> country code. Example: <code>201012345678</code></li>
+              <li><strong>Set Priority:</strong> The 🚩 alarm triggers after 3 days — edit the <strong>Days in Shop</strong> formula to change this.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Columns: Actions + Performance -->
+        <div class="notion-columns two">
+          <div class="actions-callout">
+            <div class="actions-title">⚡ Actions</div>
+            <button class="notion-btn green">➕ Add New Repair</button>
+            <button class="notion-btn blue">🧾 Generate Invoice</button>
+            <button class="notion-btn gray">📊 Open Finance View</button>
+            <button class="notion-btn gray">📲 WhatsApp Customer</button>
+          </div>
+          <div class="perf-callout">
+            <div class="perf-title">📊 Performance</div>
+            <div class="perf-sub">💰 This Week's Status</div>
+            <div class="kpi-row">
+              <div class="kpi-pill">
+                <div class="kpi-label">Revenue</div>
+                <div class="kpi-value green">$1,240</div>
+              </div>
+              <div class="kpi-pill">
+                <div class="kpi-label">Expenses</div>
+                <div class="kpi-value red">$320</div>
+              </div>
+              <div class="kpi-pill">
+                <div class="kpi-label">Net Profit</div>
+                <div class="kpi-value orange">$920</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Database: Active Repairs Table -->
+        <div class="notion-table-wrapper">
+          <div class="notion-db-header">
+            <div class="db-title-row">
+              <span class="db-icon">⚙️</span>
+              <span class="db-name">FixFlow OS</span>
+            </div>
+            <div class="db-views">
+              <div class="db-view-tab">🏗️ Shop Floor</div>
+              <div class="db-view-tab active">📋 Active Repairs</div>
+              <div class="db-view-tab">🛡️ Under Warranty</div>
+              <div class="db-view-tab">📜 History</div>
+            </div>
+            <div class="db-toolbar">
+              <div class="db-toolbar-btn">Filter</div>
+              <div class="db-toolbar-btn">Sort</div>
+              <div class="db-toolbar-btn">···</div>
+            </div>
+          </div>
+
+          <table class="notion-table">
+            <thead>
+              <tr>
+                <th>Details</th>
+                <th>#</th>
+                <th>Date Received</th>
+                <th>Customer Name</th>
+                <th>Device Model</th>
+                <th>Issue</th>
+                <th>Status</th>
+                <th>Repair Price</th>
+                <th>Deposit</th>
+                <th>Balance Due</th>
+                <th>Payment</th>
+                <th>Net Profit</th>
+                <th>Days</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="title-cell">Screen replacement + back glass</td>
+                <td class="num-cell">047</td>
+                <td>15/04/2026</td>
+                <td>Ahmed Al-Rashidi</td>
+                <td><span class="n-tag pink">iPhone 15 Pro Max</span></td>
+                <td><span class="n-tag blue">Screen</span> <span class="n-tag green">Back Glass</span></td>
+                <td><span class="n-status inprog">In progress</span></td>
+                <td class="num-cell">$120</td>
+                <td class="num-cell">$60</td>
+                <td class="num-cell"><strong>$60</strong></td>
+                <td><span class="n-tag yellow">Partially Paid</span></td>
+                <td class="num-cell price-green">$84</td>
+                <td><span class="alarm-flag">1 day</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">Battery swollen, not charging</td>
+                <td class="num-cell">046</td>
+                <td>15/04/2026</td>
+                <td>Sara Khalid</td>
+                <td><span class="n-tag orange">Samsung A52</span></td>
+                <td><span class="n-tag purple">Battery</span> <span class="n-tag red">Not Charging</span></td>
+                <td><span class="n-status new">New</span></td>
+                <td class="num-cell">$45</td>
+                <td class="num-cell">$0</td>
+                <td class="num-cell"><strong>$45</strong></td>
+                <td><span class="n-tag red">Not Paid</span></td>
+                <td class="num-cell price-green">$28</td>
+                <td><span class="alarm-flag">Today</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">Dead — board level repair</td>
+                <td class="num-cell">045</td>
+                <td>13/04/2026</td>
+                <td>Mohammed Al-Amin</td>
+                <td><span class="n-tag pink">iPhone 14 Pro</span></td>
+                <td><span class="n-tag gray">Dead</span></td>
+                <td><span class="n-status inprog">In progress</span></td>
+                <td class="num-cell">$180</td>
+                <td class="num-cell">$90</td>
+                <td class="num-cell"><strong>$90</strong></td>
+                <td><span class="n-tag yellow">Partially Paid</span></td>
+                <td class="num-cell price-green">$130</td>
+                <td><span class="alarm-flag">🚩 2 days</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">Charging port replacement</td>
+                <td class="num-cell">044</td>
+                <td>12/04/2026</td>
+                <td>Fatima Hassan</td>
+                <td><span class="n-tag yellow">Huawei Y9 Prime</span></td>
+                <td><span class="n-tag red">Not Charging</span></td>
+                <td><span class="n-status waiting">Waiting for parts</span></td>
+                <td class="num-cell">$35</td>
+                <td class="num-cell">$0</td>
+                <td class="num-cell"><strong>$35</strong></td>
+                <td><span class="n-tag red">Not Paid</span></td>
+                <td class="num-cell price-green">$22</td>
+                <td><span class="alarm-flag">🚩🚩 3 days</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">Screen cracked, touch not working</td>
+                <td class="num-cell">043</td>
+                <td>11/04/2026</td>
+                <td>Khalid Osman</td>
+                <td><span class="n-tag orange">Samsung S22 Ultra</span></td>
+                <td><span class="n-tag blue">Screen</span></td>
+                <td><span class="n-status ready">Ready for Pickup</span></td>
+                <td class="num-cell">$220</td>
+                <td class="num-cell">$110</td>
+                <td class="num-cell"><strong>$110</strong></td>
+                <td><span class="n-tag yellow">Partially Paid</span></td>
+                <td class="num-cell price-green">$165</td>
+                <td><span class="alarm-flag">🚩🚩 4 days</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">Home button flex replacement</td>
+                <td class="num-cell">042</td>
+                <td>10/04/2026</td>
+                <td>Layla Ibrahim</td>
+                <td><span class="n-tag pink">iPhone Xs Max</span></td>
+                <td><span class="n-tag yellow">Home Button</span></td>
+                <td><span class="n-status inprog">In progress</span></td>
+                <td class="num-cell">$55</td>
+                <td class="num-cell">$55</td>
+                <td class="num-cell"><strong>$0</strong></td>
+                <td><span class="n-tag green">Paid</span></td>
+                <td class="num-cell price-green">$40</td>
+                <td><span class="alarm-flag">🚩🚩 5 days</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <p class="export-hint">Right-click → Save as image, or use browser screenshot tool</p>
+</div>
+
+
+<!-- ==============================================================
+     MOCKUP 2: SHOP FLOOR — BOARD VIEW
+     ============================================================== -->
+<div class="mockup-section" id="mockup-board">
+  <p class="mockup-label">Mockup 2 — Shop Floor · Board View (Kanban)</p>
+  <div class="notion-window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="tl r"></div><div class="tl y"></div><div class="tl g"></div>
+      </div>
+      <div class="titlebar-center">
+        <span>🛠️</span> Shop Floor — Drag & Drop Workflow
+      </div>
+    </div>
+
+    <div class="notion-layout">
+      <div class="notion-sidebar">
+        <div class="sidebar-workspace">
+          <div class="ws-icon">⚡</div>
+          <span class="ws-name">FixFLow</span>
+          <span class="ws-chevron">▾</span>
+        </div>
+        <div class="sidebar-search">🔍 Search</div>
+        <div class="sidebar-item">🏠 Home</div>
+        <div class="sidebar-item active">🛠️ Repairs Dashboard</div>
+        <div class="sidebar-item">💸 Income & Expenses</div>
+        <div class="sidebar-item">👥 Customer CRM</div>
+        <div class="sidebar-item">🧮 Pricing Calculator</div>
+        <div class="sidebar-item">🧾 Invoices</div>
+      </div>
+
+      <div class="notion-content">
+        <div class="page-header" style="padding-bottom:16px">
+          <span class="page-icon-large">🛠️</span>
+          <h1 class="page-title">Repairs Dashboard</h1>
+        </div>
+
+        <!-- DB Header -->
+        <div style="padding: 0 60px 12px">
+          <div class="notion-db-header">
+            <div class="db-title-row">
+              <span class="db-icon">⚙️</span>
+              <span class="db-name">FixFlow OS</span>
+            </div>
+            <div class="db-views">
+              <div class="db-view-tab active">🏗️ Shop Floor</div>
+              <div class="db-view-tab">📋 Active Repairs</div>
+              <div class="db-view-tab">🛡️ Under Warranty</div>
+              <div class="db-view-tab">📜 History</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Board -->
+        <div class="notion-board">
+          <div class="board-columns">
+
+            <!-- New -->
+            <div class="board-col">
+              <div class="board-col-header">
+                <div class="board-col-dot" style="background:#787774"></div>
+                <span class="board-col-name">New</span>
+                <span class="board-col-count">2</span>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Battery swollen, not charging</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag orange" style="font-size:10px">Samsung A52</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Sara Khalid</div>
+                  <div class="board-prop"><span class="board-prop-label">Price</span><strong>$45</strong></div>
+                  <div class="board-prop"><span class="board-prop-label">Balance</span><span style="color:var(--notion-red);font-weight:600">$45 due</span></div>
+                </div>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Screen cracked — Redmi Note 9</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag orange" style="font-size:10px">Redmi Note 9</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Omar Salim</div>
+                  <div class="board-prop"><span class="board-prop-label">Price</span><strong>$50</strong></div>
+                </div>
+              </div>
+              <div class="board-add-card">+ New</div>
+            </div>
+
+            <!-- In Progress -->
+            <div class="board-col">
+              <div class="board-col-header">
+                <div class="board-col-dot" style="background:#1A73E8"></div>
+                <span class="board-col-name">In progress</span>
+                <span class="board-col-count">3</span>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Screen + back glass — iPhone 15 Pro Max</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag pink" style="font-size:10px">iPhone 15 Pro Max</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Ahmed Al-Rashidi</div>
+                  <div class="board-prop"><span class="board-prop-label">Price</span><strong>$120</strong></div>
+                  <div class="board-prop"><span class="board-prop-label">Days</span>1 day</div>
+                </div>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Dead — board level · iPhone 14 Pro</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag pink" style="font-size:10px">iPhone 14 Pro</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Mohammed Al-Amin</div>
+                  <div class="board-prop"><span class="board-prop-label">Price</span><strong>$180</strong></div>
+                  <div class="board-prop"><span class="board-prop-label">Days</span><span style="color:var(--notion-orange)">🚩 2 days</span></div>
+                </div>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Home button flex — iPhone Xs Max</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag pink" style="font-size:10px">iPhone Xs Max</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Layla Ibrahim</div>
+                  <div class="board-prop"><span class="board-prop-label">Price</span><strong>$55</strong></div>
+                  <div class="board-prop"><span class="board-prop-label">Days</span><span style="color:var(--notion-red)">🚩🚩 5 days</span></div>
+                </div>
+              </div>
+              <div class="board-add-card">+ New</div>
+            </div>
+
+            <!-- Waiting for Parts -->
+            <div class="board-col">
+              <div class="board-col-header">
+                <div class="board-col-dot" style="background:#EB5757"></div>
+                <span class="board-col-name">Waiting for parts</span>
+                <span class="board-col-count">1</span>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Charging port replacement</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag yellow" style="font-size:10px">Huawei Y9 Prime</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Fatima Hassan</div>
+                  <div class="board-prop"><span class="board-prop-label">Price</span><strong>$35</strong></div>
+                  <div class="board-prop"><span class="board-prop-label">Days</span><span style="color:var(--notion-red)">🚩🚩 3 days</span></div>
+                </div>
+              </div>
+              <div class="board-add-card">+ New</div>
+            </div>
+
+            <!-- Ready for Pickup -->
+            <div class="board-col">
+              <div class="board-col-header">
+                <div class="board-col-dot" style="background:#DFAB01"></div>
+                <span class="board-col-name">Ready for Pickup</span>
+                <span class="board-col-count">1</span>
+              </div>
+              <div class="board-card">
+                <div class="board-card-title">Screen cracked — Samsung S22 Ultra</div>
+                <div class="board-card-props">
+                  <div class="board-prop"><span class="board-prop-label">Device</span><span class="n-tag orange" style="font-size:10px">Samsung S22 Ultra</span></div>
+                  <div class="board-prop"><span class="board-prop-label">Customer</span>Khalid Osman</div>
+                  <div class="board-prop"><span class="board-prop-label">Balance</span><span style="color:var(--notion-orange);font-weight:600">$110 due</span></div>
+                  <div class="board-prop"><span class="board-prop-label">WhatsApp</span><span class="wa-link">📲 Notify</span></div>
+                </div>
+              </div>
+              <div class="board-add-card">+ New</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==============================================================
+     MOCKUP 3: INCOME & EXPENSES PAGE
+     ============================================================== -->
+<div class="mockup-section" id="mockup-finance">
+  <p class="mockup-label">Mockup 3 — Income & Expenses Dashboard</p>
+  <div class="notion-window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="tl r"></div><div class="tl y"></div><div class="tl g"></div>
+      </div>
+      <div class="titlebar-center">
+        <span>💸</span> Income & Expenses — FixFlow OS
+      </div>
+    </div>
+
+    <div class="notion-layout">
+      <div class="notion-sidebar">
+        <div class="sidebar-workspace">
+          <div class="ws-icon">⚡</div>
+          <span class="ws-name">FixFLow</span>
+          <span class="ws-chevron">▾</span>
+        </div>
+        <div class="sidebar-search">🔍 Search</div>
+        <div class="sidebar-item">🏠 Home</div>
+        <div class="sidebar-item">🛠️ Repairs Dashboard</div>
+        <div class="sidebar-item active">💸 Income & Expenses</div>
+        <div class="sidebar-item">👥 Customer CRM</div>
+        <div class="sidebar-item">🧮 Pricing Calculator</div>
+        <div class="sidebar-item">🧾 Invoices</div>
+      </div>
+
+      <div class="notion-content">
+        <div class="page-header">
+          <span class="page-icon-large">💸</span>
+          <h1 class="page-title">Income & Expenses</h1>
+          <p class="page-subtitle">The financial heartbeat of your repair shop. Stop guessing your margins — start tracking growth with precision.</p>
+        </div>
+
+        <div class="notion-callout green">
+          <span class="callout-icon">📖</span>
+          <div class="callout-body">
+            <strong>Quick Start:</strong>
+            <ol style="margin-top:6px">
+              <li><strong>Logging:</strong> Click <strong>+ New Entry</strong> below to log an income or expense entry.</li>
+              <li><strong>Views:</strong> Switch between <strong>Today, This Week, This Month & Overall</strong> with the tabs above.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="notion-columns two">
+          <div class="actions-callout">
+            <div class="actions-title">⚡ Actions</div>
+            <button class="notion-btn green">➕ New Income Entry</button>
+            <button class="notion-btn danger">➖ New Expense Entry</button>
+            <button class="notion-btn blue">📊 Monthly Report</button>
+            <button class="notion-btn gray">📤 Export to CSV</button>
+          </div>
+          <div class="perf-callout">
+            <div class="perf-title">📊 Performance</div>
+            <div class="perf-sub">💰 Expected Cash Flow — This Month</div>
+            <div class="kpi-row">
+              <div class="kpi-pill">
+                <div class="kpi-label">Income</div>
+                <div class="kpi-value green">$2,840</div>
+              </div>
+              <div class="kpi-pill">
+                <div class="kpi-label">Expenses</div>
+                <div class="kpi-value red">$640</div>
+              </div>
+              <div class="kpi-pill">
+                <div class="kpi-label">Net</div>
+                <div class="kpi-value orange">$2,200</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finance Table -->
+        <div class="notion-table-wrapper">
+          <div class="notion-db-header">
+            <div class="db-title-row">
+              <span class="db-icon">💸</span>
+              <span class="db-name">Income & Expenses</span>
+            </div>
+            <div class="db-views">
+              <div class="db-view-tab">Today</div>
+              <div class="db-view-tab active">This Week</div>
+              <div class="db-view-tab">This Month</div>
+              <div class="db-view-tab">Overall</div>
+            </div>
+          </div>
+          <table class="finance-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Linked Repair</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>iPhone 15 Pro Max — Screen + Back</strong></td>
+                <td>15/04/2026</td>
+                <td><span class="n-tag green">Income</span></td>
+                <td><span class="n-tag blue">Repair</span></td>
+                <td><strong style="color:var(--notion-green)">+$120</strong></td>
+                <td>Ticket #047</td>
+                <td>Deposit $60 received</td>
+              </tr>
+              <tr>
+                <td><strong>Parts — iPhone 15 screen OLED</strong></td>
+                <td>14/04/2026</td>
+                <td><span class="n-tag red">Expense</span></td>
+                <td><span class="n-tag orange">Parts</span></td>
+                <td><strong style="color:var(--notion-red)">-$36</strong></td>
+                <td>Ticket #047</td>
+                <td>Bought from supplier</td>
+              </tr>
+              <tr>
+                <td><strong>Samsung S22 Ultra — Screen</strong></td>
+                <td>14/04/2026</td>
+                <td><span class="n-tag green">Income</span></td>
+                <td><span class="n-tag blue">Repair</span></td>
+                <td><strong style="color:var(--notion-green)">+$220</strong></td>
+                <td>Ticket #043</td>
+                <td>Full payment on pickup</td>
+              </tr>
+              <tr>
+                <td><strong>Shop Rent — April</strong></td>
+                <td>13/04/2026</td>
+                <td><span class="n-tag red">Expense</span></td>
+                <td><span class="n-tag gray">Overhead</span></td>
+                <td><strong style="color:var(--notion-red)">-$280</strong></td>
+                <td>—</td>
+                <td>Monthly rent</td>
+              </tr>
+              <tr>
+                <td><strong>iPhone 14 Pro — Board Level</strong></td>
+                <td>13/04/2026</td>
+                <td><span class="n-tag green">Income</span></td>
+                <td><span class="n-tag blue">Repair</span></td>
+                <td><strong style="color:var(--notion-green)">+$90</strong></td>
+                <td>Ticket #045</td>
+                <td>50% deposit</td>
+              </tr>
+              <tr>
+                <td><strong>Soldering tools — new tips</strong></td>
+                <td>12/04/2026</td>
+                <td><span class="n-tag red">Expense</span></td>
+                <td><span class="n-tag orange">Equipment</span></td>
+                <td><strong style="color:var(--notion-red)">-$24</strong></td>
+                <td>—</td>
+                <td>Consumables</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Monthly summary mini -->
+          <div class="monthly-grid">
+            <div class="month-box">
+              <div class="month-label">Jan 2026</div>
+              <div class="month-val green">$1,820</div>
+            </div>
+            <div class="month-box">
+              <div class="month-label">Feb 2026</div>
+              <div class="month-val green">$2,140</div>
+            </div>
+            <div class="month-box">
+              <div class="month-label">Mar 2026</div>
+              <div class="month-val green">$2,480</div>
+            </div>
+            <div class="month-box">
+              <div class="month-label">Apr 2026 ↗</div>
+              <div class="month-val orange">$2,840</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==============================================================
+     MOCKUP 4: SMART PRICING CALCULATOR
+     ============================================================== -->
+<div class="mockup-section" id="mockup-pricing">
+  <p class="mockup-label">Mockup 4 — Smart Pricing Calculator</p>
+  <div class="notion-window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="tl r"></div><div class="tl y"></div><div class="tl g"></div>
+      </div>
+      <div class="titlebar-center">
+        <span>🧮</span> Smart Pricing Calculator — FixFlow OS
+      </div>
+    </div>
+
+    <div class="notion-layout">
+      <div class="notion-sidebar">
+        <div class="sidebar-workspace">
+          <div class="ws-icon">⚡</div>
+          <span class="ws-name">FixFLow</span>
+          <span class="ws-chevron">▾</span>
+        </div>
+        <div class="sidebar-search">🔍 Search</div>
+        <div class="sidebar-item">🏠 Home</div>
+        <div class="sidebar-item">🛠️ Repairs Dashboard</div>
+        <div class="sidebar-item">💸 Income & Expenses</div>
+        <div class="sidebar-item">👥 Customer CRM</div>
+        <div class="sidebar-item active">🧮 Pricing Calculator</div>
+        <div class="sidebar-item">🧾 Invoices</div>
+      </div>
+
+      <div class="notion-content">
+        <div class="page-header">
+          <span class="page-icon-large">🧮</span>
+          <h1 class="page-title">Smart Pricing Calculator</h1>
+          <p class="page-subtitle">The smartest pricing calculator based on device type and repair complexity. Never undercharge again.</p>
+        </div>
+
+        <div class="notion-callout green">
+          <span class="callout-icon">🚀</span>
+          <div class="callout-body">
+            <div class="callout-title">Quick Start Guide: Pricing & Estimation System</div>
+            <ol>
+              <li><strong>Initialization:</strong> Click <strong>"New Pricing Estimate"</strong> to generate a new calculation workspace.</li>
+              <li><strong>Device Category:</strong> Select hardware type — system adjusts Hourly Labor Rate automatically.</li>
+              <li><strong>Complexity Level:</strong> Assess difficulty (Easy / Medium / Complex) to calibrate risk and precision.</li>
+              <li><strong>Spare Parts Cost:</strong> Enter the net purchase price of the replacement component.</li>
+              <li><strong>Output:</strong> System calculates 3 strategic pricing tiers — Premium, Competitive, Wholesale.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="notion-columns two">
+          <div class="actions-callout">
+            <div class="actions-title">⚡ Actions</div>
+            <button class="notion-btn green">➕ New Pricing Estimate</button>
+            <button class="notion-btn blue">📋 Duplicate Last Estimate</button>
+            <button class="notion-btn gray">⏲️ View Hourly Rates</button>
+            <button class="notion-btn gray">🏗️ View Complexity Levels</button>
+          </div>
+          <div class="perf-callout">
+            <div class="perf-title">⏲️ Hourly Rate Reference</div>
+            <div class="perf-sub">Auto-adjusts based on device category</div>
+            <div class="kpi-row">
+              <div class="kpi-pill">
+                <div class="kpi-label">iPhone</div>
+                <div class="kpi-value orange">$25/hr</div>
+              </div>
+              <div class="kpi-pill">
+                <div class="kpi-label">Android</div>
+                <div class="kpi-value blue">$15/hr</div>
+              </div>
+              <div class="kpi-pill">
+                <div class="kpi-label">Board Level</div>
+                <div class="kpi-value" style="color:var(--notion-purple)">$40/hr</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Calculator Table -->
+        <div class="notion-table-wrapper">
+          <div class="notion-db-header">
+            <div class="db-title-row">
+              <span class="db-icon">🧮</span>
+              <span class="db-name">Smart Pricing Calculator</span>
+            </div>
+            <div class="db-views">
+              <div class="db-view-tab active">All Estimates</div>
+              <div class="db-view-tab">iPhone</div>
+              <div class="db-view-tab">Android</div>
+              <div class="db-view-tab">Board Level</div>
+            </div>
+          </div>
+          <table class="pricing-table">
+            <thead>
+              <tr>
+                <th>Repair Type</th>
+                <th>Device Category</th>
+                <th>Complexity</th>
+                <th>Parts Cost</th>
+                <th>Labor Time</th>
+                <th>💰 Premium Price</th>
+                <th>⚖️ Competitive</th>
+                <th>🤝 Wholesale</th>
+                <th>Profit Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Screen Replacement</strong></td>
+                <td><span class="n-tag pink">iPhone</span></td>
+                <td><span class="n-tag red">Complex</span></td>
+                <td>$45</td>
+                <td>1.5 hrs</td>
+                <td><div class="price-tier"><span class="price-tier-main price-green">$145</span><span class="price-tier-label">Max Profit</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-blue">$120</span><span class="price-tier-label">Market Rate</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-orange">$95</span><span class="price-tier-label">B2B / Bulk</span></div></td>
+                <td><span class="n-tag green">68%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Battery Replacement</strong></td>
+                <td><span class="n-tag orange">Android</span></td>
+                <td><span class="n-tag yellow">Medium</span></td>
+                <td>$12</td>
+                <td>0.5 hrs</td>
+                <td><div class="price-tier"><span class="price-tier-main price-green">$55</span><span class="price-tier-label">Max Profit</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-blue">$40</span><span class="price-tier-label">Market Rate</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-orange">$28</span><span class="price-tier-label">B2B / Bulk</span></div></td>
+                <td><span class="n-tag green">70%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Board Level — No Power</strong></td>
+                <td><span class="n-tag pink">iPhone</span></td>
+                <td><span class="n-tag purple">Complex+</span></td>
+                <td>$15</td>
+                <td>3.0 hrs</td>
+                <td><div class="price-tier"><span class="price-tier-main price-green">$220</span><span class="price-tier-label">Max Profit</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-blue">$175</span><span class="price-tier-label">Market Rate</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-orange">$140</span><span class="price-tier-label">B2B / Bulk</span></div></td>
+                <td><span class="n-tag green">93%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Charging Port Repair</strong></td>
+                <td><span class="n-tag orange">Android</span></td>
+                <td><span class="n-tag green">Easy</span></td>
+                <td>$8</td>
+                <td>0.5 hrs</td>
+                <td><div class="price-tier"><span class="price-tier-main price-green">$42</span><span class="price-tier-label">Max Profit</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-blue">$32</span><span class="price-tier-label">Market Rate</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-orange">$22</span><span class="price-tier-label">B2B / Bulk</span></div></td>
+                <td><span class="n-tag green">75%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Back Glass Replacement</strong></td>
+                <td><span class="n-tag pink">iPhone</span></td>
+                <td><span class="n-tag yellow">Medium</span></td>
+                <td>$18</td>
+                <td>1.0 hr</td>
+                <td><div class="price-tier"><span class="price-tier-main price-green">$85</span><span class="price-tier-label">Max Profit</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-blue">$65</span><span class="price-tier-label">Market Rate</span></div></td>
+                <td><div class="price-tier"><span class="price-tier-main price-orange">$50</span><span class="price-tier-label">B2B / Bulk</span></div></td>
+                <td><span class="n-tag green">79%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==============================================================
+     MOCKUP 5: CRM — Customer Relationship Management
+     ============================================================== -->
+<div class="mockup-section" id="mockup-crm">
+  <p class="mockup-label">Mockup 5 — CRM · Customer Relationship Management</p>
+  <div class="notion-window">
+    <div class="titlebar">
+      <div class="traffic-lights">
+        <div class="tl r"></div><div class="tl y"></div><div class="tl g"></div>
+      </div>
+      <div class="titlebar-center">
+        <span>👥</span> CRM — Customer Relationship Management — FixFlow OS
+      </div>
+    </div>
+
+    <div class="notion-layout">
+      <!-- Sidebar -->
+      <div class="notion-sidebar">
+        <div class="sidebar-workspace">
+          <div class="ws-icon">⚡</div>
+          <span class="ws-name">FixFLow</span>
+          <span class="ws-chevron">▾</span>
+        </div>
+        <div class="sidebar-search">🔍 Search</div>
+        <div class="sidebar-item">🏠 Home</div>
+        <div class="sidebar-item">🛠️ Repairs Dashboard</div>
+        <div class="sidebar-item">💸 Income & Expenses</div>
+        <div class="sidebar-item active">👥 Customer CRM</div>
+        <div class="sidebar-item">🧮 Pricing Calculator</div>
+        <div class="sidebar-item">🧾 Invoices</div>
+      </div>
+
+      <!-- Content -->
+      <div class="notion-content">
+
+        <div class="page-header">
+          <span class="page-icon-large">👥</span>
+          <h1 class="page-title">CRM (Customer Relationship Management)</h1>
+          <p class="page-subtitle">Your customer database is your shop's greatest asset — track repair history, maximize lifetime value, and turn every fix into a lasting relationship.</p>
+        </div>
+
+        <!-- Callout -->
+        <div class="notion-callout green">
+          <span class="callout-icon">🚀</span>
+          <div class="callout-body">
+            <div class="callout-title">Quick Start Guide: Customer Management & Loyalty</div>
+            <ol>
+              <li><strong>❄️ Engagement Status:</strong> If a customer is inactive for <strong>90+ days</strong>, the system auto-triggers an <strong>❄️ Inactive Customer</strong> alert — send a re-engagement offer.</li>
+              <li><strong>📲 WhatsApp Outreach:</strong> Use <strong>"Inspection Offer"</strong> or <strong>"Discount Offer"</strong> buttons to send pre-written marketing messages instantly.</li>
+              <li><strong>🎫 Ticket Management:</strong> Use <strong>"Create Ticket"</strong> to open a new repair record directly linked to the customer profile.</li>
+              <li><strong>🏆 Loyalty Points:</strong> Auto-calculated — every <strong>10 EGP = 1 point</strong>. Tiers: 🆕 New · 🌟 Pro (500pts) · 💎 Elite (1000pts) · 👑 VIP (1500pts)</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Actions column -->
+        <div class="notion-columns two" style="margin-bottom:0">
+          <div class="actions-callout">
+            <div class="actions-title">⚡ Actions</div>
+            <button class="notion-btn green">➕ Add New Customer</button>
+            <button class="notion-btn blue">📲 Inspection Offer (WhatsApp)</button>
+            <button class="notion-btn gray">🎫 Create Repair Ticket</button>
+          </div>
+          <!-- Loyalty tier legend -->
+          <div class="perf-callout">
+            <div class="perf-title">🏆 Loyalty Tiers</div>
+            <div class="perf-sub">Auto-calculated from Total Spend</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:4px">
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+                <span style="font-size:15px">🆕</span>
+                <span style="color:var(--notion-text2)">New Customer</span>
+                <span style="margin-right:auto"></span>
+                <span class="n-tag gray">0 pts</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+                <span style="font-size:15px">🌟</span>
+                <span style="color:var(--notion-text2)">Pro Customer</span>
+                <span style="margin-right:auto"></span>
+                <span class="n-tag blue">500 pts</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+                <span style="font-size:15px">💎</span>
+                <span style="color:var(--notion-text2)">Elite Customer</span>
+                <span style="margin-right:auto"></span>
+                <span class="n-tag purple">1,000 pts</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px">
+                <span style="font-size:15px">👑</span>
+                <span style="color:var(--notion-text2)">VIP Customer</span>
+                <span style="margin-right:auto"></span>
+                <span class="n-tag yellow">1,500 pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CRM Table -->
+        <div class="notion-table-wrapper" style="margin-top:16px">
+          <div class="notion-db-header">
+            <div class="db-title-row">
+              <span class="db-icon">👥</span>
+              <span class="db-name">Customers Data</span>
+            </div>
+            <div class="db-views">
+              <div class="db-view-tab active">📋 All Customers</div>
+              <div class="db-view-tab">👑 VIP & Elite</div>
+              <div class="db-view-tab">❄️ Inactive</div>
+              <div class="db-view-tab">🆕 New</div>
+            </div>
+            <div class="db-toolbar">
+              <div class="db-toolbar-btn">Filter</div>
+              <div class="db-toolbar-btn">Sort</div>
+              <div class="db-toolbar-btn">···</div>
+            </div>
+          </div>
+
+          <table class="notion-table">
+            <thead>
+              <tr>
+                <th>Customer Name</th>
+                <th>Sex</th>
+                <th>Phone Number</th>
+                <th>Times Visited</th>
+                <th>Devices</th>
+                <th>Total Spend</th>
+                <th>Loyalty Points</th>
+                <th>Tier</th>
+                <th>Last Visit</th>
+                <th>Last Visit Was</th>
+                <th>Status</th>
+                <th>DND</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="title-cell">👑 Mohammed Al-Amin</td>
+                <td><span class="n-tag blue">Male</span></td>
+                <td class="num-cell">201012345678</td>
+                <td class="num-cell" style="text-align:center"><strong>12</strong></td>
+                <td><span class="n-tag pink" style="font-size:10px">iPhone 14 Pro</span> <span class="n-tag pink" style="font-size:10px">iPhone X</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$1,840</strong></td>
+                <td class="num-cell"><strong>1,840 pts</strong></td>
+                <td><span class="n-tag yellow">👑 VIP</span></td>
+                <td>13/04/2026</td>
+                <td><span class="n-tag green">2 days ago</span></td>
+                <td><span class="n-tag green">🟢 Active</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 WhatsApp</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">💎 Ahmed Al-Rashidi</td>
+                <td><span class="n-tag blue">Male</span></td>
+                <td class="num-cell">201098765432</td>
+                <td class="num-cell" style="text-align:center"><strong>8</strong></td>
+                <td><span class="n-tag pink" style="font-size:10px">iPhone 15 Pro Max</span> <span class="n-tag pink" style="font-size:10px">iPhone 12</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$1,120</strong></td>
+                <td class="num-cell"><strong>1,120 pts</strong></td>
+                <td><span class="n-tag purple">💎 Elite</span></td>
+                <td>15/04/2026</td>
+                <td><span class="n-tag green">Today</span></td>
+                <td><span class="n-tag green">🟢 Active</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 WhatsApp</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">🌟 Khalid Osman</td>
+                <td><span class="n-tag blue">Male</span></td>
+                <td class="num-cell">201155566677</td>
+                <td class="num-cell" style="text-align:center"><strong>6</strong></td>
+                <td><span class="n-tag orange" style="font-size:10px">Samsung S22 Ultra</span> <span class="n-tag orange" style="font-size:10px">Samsung A52</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$720</strong></td>
+                <td class="num-cell"><strong>720 pts</strong></td>
+                <td><span class="n-tag blue">🌟 Pro</span></td>
+                <td>11/04/2026</td>
+                <td><span class="n-tag green">4 days ago</span></td>
+                <td><span class="n-tag green">🟢 Active</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 WhatsApp</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">🌟 Sara Khalid</td>
+                <td><span class="n-tag purple">Female</span></td>
+                <td class="num-cell">201033344455</td>
+                <td class="num-cell" style="text-align:center"><strong>5</strong></td>
+                <td><span class="n-tag orange" style="font-size:10px">Samsung A52</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$540</strong></td>
+                <td class="num-cell"><strong>540 pts</strong></td>
+                <td><span class="n-tag blue">🌟 Pro</span></td>
+                <td>15/04/2026</td>
+                <td><span class="n-tag green">Today</span></td>
+                <td><span class="n-tag green">🟢 Active</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 WhatsApp</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">🌟 Fatima Hassan</td>
+                <td><span class="n-tag purple">Female</span></td>
+                <td class="num-cell">201066677788</td>
+                <td class="num-cell" style="text-align:center"><strong>4</strong></td>
+                <td><span class="n-tag yellow" style="font-size:10px">Huawei Y9 Prime</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$310</strong></td>
+                <td class="num-cell"><strong>310 pts</strong></td>
+                <td><span class="n-tag blue">🌟 Pro</span></td>
+                <td>12/04/2026</td>
+                <td><span class="n-tag green">3 days ago</span></td>
+                <td><span class="n-tag green">🟢 Active</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 WhatsApp</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">🆕 Layla Ibrahim</td>
+                <td><span class="n-tag purple">Female</span></td>
+                <td class="num-cell">201077788899</td>
+                <td class="num-cell" style="text-align:center"><strong>1</strong></td>
+                <td><span class="n-tag pink" style="font-size:10px">iPhone Xs Max</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$55</strong></td>
+                <td class="num-cell"><strong>55 pts</strong></td>
+                <td><span class="n-tag gray">🆕 New</span></td>
+                <td>10/04/2026</td>
+                <td><span class="n-tag yellow">5 days ago</span></td>
+                <td><span class="n-tag green">🟢 Active</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 WhatsApp</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">🆕 Omar Salim</td>
+                <td><span class="n-tag blue">Male</span></td>
+                <td class="num-cell">201044455566</td>
+                <td class="num-cell" style="text-align:center"><strong>2</strong></td>
+                <td><span class="n-tag orange" style="font-size:10px">Redmi Note 9</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$85</strong></td>
+                <td class="num-cell"><strong>85 pts</strong></td>
+                <td><span class="n-tag gray">🆕 New</span></td>
+                <td>08/01/2026</td>
+                <td><span class="n-tag red">97 days ago</span></td>
+                <td><span class="n-tag gray">❄️ Inactive</span></td>
+                <td style="text-align:center">☐</td>
+                <td><span class="wa-link">📲 Re-engage</span></td>
+              </tr>
+              <tr>
+                <td class="title-cell">🆕 Nour Al-Din</td>
+                <td><span class="n-tag blue">Male</span></td>
+                <td class="num-cell">201022233344</td>
+                <td class="num-cell" style="text-align:center"><strong>1</strong></td>
+                <td><span class="n-tag yellow" style="font-size:10px">Honor X9</span></td>
+                <td class="num-cell"><strong style="color:var(--notion-green)">$40</strong></td>
+                <td class="num-cell"><strong>40 pts</strong></td>
+                <td><span class="n-tag gray">🆕 New</span></td>
+                <td>05/01/2026</td>
+                <td><span class="n-tag red">100 days ago</span></td>
+                <td><span class="n-tag gray">❄️ Inactive</span></td>
+                <td style="text-align:center">✓ DND</td>
+                <td><span style="color:var(--notion-text3);font-size:12px">🚫 DND</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Summary footer row -->
+          <div style="background:var(--notion-sidebar);border:1px solid var(--notion-border);border-top:none;border-radius:0 0 6px 6px;padding:8px 12px;display:flex;gap:32px;font-size:12px;color:var(--notion-text2)">
+            <span>8 customers</span>
+            <span>Total Spend: <strong style="color:var(--notion-text)">$4,710</strong></span>
+            <span>Avg per customer: <strong style="color:var(--notion-text)">$588</strong></span>
+            <span>❄️ Inactive: <strong style="color:var(--notion-red)">2</strong></span>
+            <span>👑 VIP: <strong style="color:var(--notion-yellow)">1</strong></span>
+            <span>💎 Elite: <strong style="color:var(--notion-purple)">1</strong></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <p class="export-hint">Right-click → Save as image, or use browser screenshot tool</p>
+</div>
+
+</body>
+</html>
